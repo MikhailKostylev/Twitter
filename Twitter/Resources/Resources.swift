@@ -15,7 +15,7 @@ enum Resources {
     }
     
     enum Color {
-        
+        static let twitter = UIColor(named: "twitter")
     }
     
     enum Font {
@@ -26,10 +26,14 @@ enum Resources {
     enum Image {
         enum Home {
             static let tweetCellAvatar = UIImage(systemName: "person.circle")
-            static let tweetCellReply = UIImage(systemName: "bubble.left")
-            static let tweetCellRetweet = UIImage(systemName: "arrow.2.squarepath")
-            static let tweetCellLike = UIImage(systemName: "heart")
-            static let tweetCellShare = UIImage(systemName: "square.and.arrow.up")
+            static let tweetCellReply = UIImage(named: "replyIcon")
+            static let tweetCellRetweet = UIImage(named: "retweetIcon")
+            static let tweetCellLike = UIImage(named: "likeIcon")
+            static let tweetCellShare = UIImage(named: "shareIcon")
+            
+            static let twitterLogoSmall = UIImage(named: "twitterLogoSmall")
+            static let twitterLogoBig = UIImage(named: "twitterLogoBig")
+            static let twitterLogoMedium = UIImage(named: "twitterLogoMedium")
         }
         
         enum TabBar {

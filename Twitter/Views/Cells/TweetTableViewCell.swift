@@ -65,28 +65,28 @@ final class TweetTableViewCell: UITableViewCell {
     private let replyButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellReply, for: .normal)
-        button.tintColor = .systemGray
+        button.tintColor = .gray
         return button
     }()
     
     private let retweetButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellRetweet, for: .normal)
-        button.tintColor = .systemGray
+        button.tintColor = .gray
         return button
     }()
     
     private let likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellLike, for: .normal)
-        button.tintColor = .systemGray
+        button.tintColor = .gray
         return button
     }()
     
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellShare, for: .normal)
-        button.tintColor = .systemGray
+        button.tintColor = .gray
         return button
     }()
     

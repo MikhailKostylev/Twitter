@@ -9,6 +9,11 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
+    enum Constants {
+        static let dividerHeight: CGFloat = 1
+        static let logoSize: CGFloat = 36
+    }
+    
     // MARK: - UI elements
     
     private let timelineTableView: UITableView = {
@@ -30,6 +35,7 @@ final class HomeViewController: UIViewController {
         setupSuperview()
         setupTableView()
         setupSubviews()
+        setupNavigationBar()
     }
 }
 
@@ -53,6 +59,51 @@ extension HomeViewController {
         view.addSubview(divider)
         view.addSubview(timelineTableView)
         setupLayout()
+    }
+    
+    private func setupNavigationBar() {
+        setupTitleView()
+        setupProfileBarButton()
+    }
+    
+    private func setupTitleView() {
+        let logoImageView = UIImageView(
+            frame: CGRect(
+                origin: .zero,
+                size: CGSize(width: Constants.logoSize, height: Constants.logoSize)
+            )
+        )
+        logoImageView.contentMode = .scaleAspectFill
+        logoImageView.image = R.Image.Home.twitterLogoMedium?.withRenderingMode(.alwaysTemplate)
+        logoImageView.tintColor = R.Color.twitter
+        
+        let titleView = UIView(
+            frame: CGRect(
+                origin: .zero,
+                size: CGSize(width: Constants.logoSize, height: Constants.logoSize)
+            )
+        )
+        titleView.addSubview(logoImageView)
+        navigationItem.titleView = titleView
+    }
+    
+    private func setupProfileBarButton() {
+        let profileImage = UIImage(systemName: "person")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: profileImage,
+            style: .plain,
+            target: self,
+            action: #selector(didTapProfile)
+        )
+    }
+}
+
+// MARK: - Actions
+
+private extension HomeViewController {
+    @objc func didTapProfile() {
+        let vc = ProfileViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -81,6 +132,8 @@ extension HomeViewController: UITableViewDelegate{
     }
 }
 
+// MARK: - Tweet Cell Delegate
+
 extension HomeViewController: TweetTableViewCellDelegate {
     func tweetCellDidTapReply() {
         print(#function)
@@ -102,11 +155,6 @@ extension HomeViewController: TweetTableViewCellDelegate {
 // MARK: - Layout
 
 private extension HomeViewController {
-    
-    enum Constants {
-        static let dividerHeight: CGFloat = 1
-    }
-    
     func setupLayout() {
         divider.prepareForAutoLayout()
         timelineTableView.prepareForAutoLayout()

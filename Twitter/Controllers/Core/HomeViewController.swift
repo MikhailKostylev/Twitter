@@ -12,10 +12,9 @@ final class HomeViewController: UIViewController {
     // MARK: - UI elements
     
     private let timelineTableView: UITableView = {
-        let table = UITableView()
-        table.backgroundColor = .systemBackground
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return table
+        let view = UITableView()
+        view.backgroundColor = .systemBackground
+        return view
     }()
     
     private let divider: UIView = {
@@ -44,6 +43,10 @@ extension HomeViewController {
     private func setupTableView() {
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
+        timelineTableView.register(
+            TweetTableViewCell.self,
+            forCellReuseIdentifier: TweetTableViewCell.id
+        )
     }
     
     private func setupSubviews() {
@@ -61,8 +64,10 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello, World!"
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: TweetTableViewCell.id,
+            for: indexPath
+        ) as? TweetTableViewCell else { return UITableViewCell() }
         return cell
     }
 }
@@ -78,9 +83,9 @@ extension HomeViewController: UITableViewDelegate{
 // MARK: - Layout
 
 private extension HomeViewController {
+    
     enum Constants {
         static let dividerHeight: CGFloat = 1
-        static let padding: CGFloat = 5
     }
     
     func setupLayout() {
@@ -89,8 +94,8 @@ private extension HomeViewController {
         
         let constraints = [
             divider.heightAnchor.constraint(equalToConstant: Constants.dividerHeight),
-            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constants.padding),
-            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.padding),
+            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             divider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             timelineTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),

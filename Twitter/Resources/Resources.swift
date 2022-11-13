@@ -18,7 +18,16 @@ enum Resources {
         
     }
     
+    enum Font {
+        static let displayName = UIFont.systemFont(ofSize: 18, weight: .bold)
+        static let username = UIFont.systemFont(ofSize: 16, weight: .regular)
+    }
+    
     enum Image {
+        enum Home {
+            static let tweetCellAvatar = UIImage(systemName: "person.fill")
+        }
+        
         enum TabBar {
             static let homeIcon = UIImage(systemName: "house")
             static let searchIcon = UIImage(systemName: "magnifyingglass")

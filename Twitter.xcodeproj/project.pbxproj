@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5FD249292132140047139B /* TweetTableViewCell.swift */; };
 		1F86858D2920322D00F83BF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86858C2920322D00F83BF5 /* AppDelegate.swift */; };
 		1F86858F2920322D00F83BF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F86858E2920322D00F83BF5 /* SceneDelegate.swift */; };
 		1F8685912920322D00F83BF5 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685902920322D00F83BF5 /* TabBarController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F5FD249292132140047139B /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		1F8685892920322D00F83BF5 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F86858C2920322D00F83BF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F86858E2920322D00F83BF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F5FD248292131E70047139B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1F5FD249292132140047139B /* TweetTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1F8685802920322D00F83BF5 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8685A02920324A00F83BF5 /* App */,
+				1F5FD248292131E70047139B /* Views */,
 				1F8685A22920332D00F83BF5 /* Controllers */,
 				1F8685A12920325C00F83BF5 /* Resources */,
 				1F8685AE2920439300F83BF5 /* Extensions */,
@@ -195,6 +206,7 @@
 				1F8685A72920356700F83BF5 /* SearchViewController.swift in Sources */,
 				1F8685912920322D00F83BF5 /* TabBarController.swift in Sources */,
 				1F86858D2920322D00F83BF5 /* AppDelegate.swift in Sources */,
+				1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */,
 				1F8685A92920359200F83BF5 /* NotificationsViewController.swift in Sources */,
 				1F86858F2920322D00F83BF5 /* SceneDelegate.swift in Sources */,
 				1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */,

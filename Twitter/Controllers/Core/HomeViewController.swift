@@ -68,6 +68,7 @@ extension HomeViewController: UITableViewDataSource {
             withIdentifier: TweetTableViewCell.id,
             for: indexPath
         ) as? TweetTableViewCell else { return UITableViewCell() }
+        cell.delegate = self
         return cell
     }
 }
@@ -77,6 +78,24 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+extension HomeViewController: TweetTableViewCellDelegate {
+    func tweetCellDidTapReply() {
+        print(#function)
+    }
+    
+    func tweetCellDidTapRetweet() {
+        print(#function)
+    }
+    
+    func tweetCellDidTapLike() {
+        print(#function)
+    }
+    
+    func tweetCellDidTapShare() {
+        print(#function)
     }
 }
 

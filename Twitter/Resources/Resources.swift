@@ -25,7 +25,11 @@ enum Resources {
     
     enum Image {
         enum Home {
-            static let tweetCellAvatar = UIImage(systemName: "person.fill")
+            static let tweetCellAvatar = UIImage(systemName: "person.circle")
+            static let tweetCellReply = UIImage(systemName: "bubble.left")
+            static let tweetCellRetweet = UIImage(systemName: "arrow.2.squarepath")
+            static let tweetCellLike = UIImage(systemName: "heart")
+            static let tweetCellShare = UIImage(systemName: "square.and.arrow.up")
         }
         
         enum TabBar {

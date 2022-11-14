@@ -31,7 +31,7 @@ final class ProfileTableViewHeader: UIView {
     private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.image = UIImage(systemName: "person.fill")
+        view.image = UIImage(systemName: "person.circle")
         view.backgroundColor = .secondarySystemBackground
         view.layer.cornerRadius = C.avatarCornerRadius
         view.layer.masksToBounds = true

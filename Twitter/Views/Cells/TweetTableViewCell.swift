@@ -38,7 +38,7 @@ final class TweetTableViewCell: UITableViewCell {
         view.numberOfLines = 1
         view.textColor = .label
         view.textAlignment = .left
-        view.font = R.Font.displayName
+        view.font = R.Font.TweetCell.displayName
         view.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return view
     }()
@@ -47,9 +47,9 @@ final class TweetTableViewCell: UITableViewCell {
         let view = UILabel()
         view.text = "@username"
         view.numberOfLines = 1
-        view.textColor = .secondaryLabel
+        view.textColor = .gray
         view.textAlignment = .left
-        view.font = R.Font.username
+        view.font = R.Font.TweetCell.username
         return view
     }()
     

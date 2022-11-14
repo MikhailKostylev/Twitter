@@ -20,6 +20,8 @@
 		1F8685AB292035B700F83BF5 /* DirectMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685AA292035B700F83BF5 /* DirectMessagesViewController.swift */; };
 		1F8685AD2920373E00F83BF5 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685AC2920373E00F83BF5 /* Resources.swift */; };
 		1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685AF292043AA00F83BF5 /* UIView+Ext.swift */; };
+		1FF3F97B292247E600ED0B37 /* ProfileTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3F97A292247E600ED0B37 /* ProfileTableViewHeader.swift */; };
+		1FF3F97E2922580300ED0B37 /* CommunitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3F97D2922580300ED0B37 /* CommunitiesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		1F8685AA292035B700F83BF5 /* DirectMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectMessagesViewController.swift; sourceTree = "<group>"; };
 		1F8685AC2920373E00F83BF5 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		1F8685AF292043AA00F83BF5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		1FF3F97A292247E600ED0B37 /* ProfileTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewHeader.swift; sourceTree = "<group>"; };
+		1FF3F97D2922580300ED0B37 /* CommunitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitiesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 		1F5FD248292131E70047139B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3F97A292247E600ED0B37 /* ProfileTableViewHeader.swift */,
 				1F803E6B2921AD87007CAE32 /* Cells */,
 			);
 			path = Views;
@@ -126,8 +131,8 @@
 		1F8685A22920332D00F83BF5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F8685A32920352C00F83BF5 /* Core */,
 				1F803E682921A723007CAE32 /* General */,
+				1F8685A32920352C00F83BF5 /* Core */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 			children = (
 				1F8685A42920354C00F83BF5 /* HomeViewController.swift */,
 				1F8685A62920356700F83BF5 /* SearchViewController.swift */,
+				1FF3F97D2922580300ED0B37 /* CommunitiesViewController.swift */,
 				1F8685A82920359200F83BF5 /* NotificationsViewController.swift */,
 				1F8685AA292035B700F83BF5 /* DirectMessagesViewController.swift */,
 				1F8685902920322D00F83BF5 /* TabBarController.swift */,
@@ -227,9 +233,11 @@
 				1F86858D2920322D00F83BF5 /* AppDelegate.swift in Sources */,
 				1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */,
 				1F8685A92920359200F83BF5 /* NotificationsViewController.swift in Sources */,
+				1FF3F97E2922580300ED0B37 /* CommunitiesViewController.swift in Sources */,
 				1F86858F2920322D00F83BF5 /* SceneDelegate.swift in Sources */,
 				1F803E6A2921A740007CAE32 /* ProfileViewController.swift in Sources */,
 				1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */,
+				1FF3F97B292247E600ED0B37 /* ProfileTableViewHeader.swift in Sources */,
 				1F8685AD2920373E00F83BF5 /* Resources.swift in Sources */,
 				1F8685A52920354C00F83BF5 /* HomeViewController.swift in Sources */,
 				1F8685AB292035B700F83BF5 /* DirectMessagesViewController.swift in Sources */,

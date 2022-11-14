@@ -9,6 +9,10 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     
+    enum Constants {
+        static let dividerHeight: CGFloat = 1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTabBar()
@@ -48,6 +52,12 @@ final class TabBarController: UITabBarController {
             ),
             generateNavigationController(
                 title: nil,
+                image: R.Image.TabBar.communitiesIcon,
+                selectedImage: R.Image.TabBar.communitiesIconFill,
+                view: CommunitiesViewController()
+            ),
+            generateNavigationController(
+                title: nil,
                 image: R.Image.TabBar.notificationsIcon,
                 selectedImage: R.Image.TabBar.notificationsIconFill,
                 view: NotificationsViewController()
@@ -59,6 +69,16 @@ final class TabBarController: UITabBarController {
                 view: DirectMessagesViewController()
             )
         ]
+        
+        let dividerView = UIView(
+            frame: CGRect(
+                origin: .zero,
+                size: CGSize(
+                    width: tabBar.width, height: Constants.dividerHeight)
+            )
+        )
+        dividerView.backgroundColor = .secondarySystemBackground
+        tabBar.addSubview(dividerView)
     }
 }
 

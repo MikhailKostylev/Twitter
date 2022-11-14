@@ -11,7 +11,9 @@ typealias R = Resources
 
 enum Resources {
     enum Text {
-        
+        enum Person {
+            static let title = "Person"
+        }
     }
     
     enum Color {
@@ -19,11 +21,26 @@ enum Resources {
     }
     
     enum Font {
-        static let displayName = UIFont.systemFont(ofSize: 18, weight: .bold)
-        static let username = UIFont.systemFont(ofSize: 16, weight: .regular)
+        enum ProfileHeader {
+            static let displayName = UIFont.systemFont(ofSize: 22, weight: .bold)
+            static let username = UIFont.systemFont(ofSize: 18, weight: .regular)
+            static let userBio = UIFont.systemFont(ofSize: 18, weight: .medium)
+            static let location = UIFont.systemFont(ofSize: 14, weight: .regular)
+            static let joinDate = UIFont.systemFont(ofSize: 14, weight: .regular)
+        }
+        
+        enum TweetCell {
+            static let displayName = UIFont.systemFont(ofSize: 18, weight: .bold)
+            static let username = UIFont.systemFont(ofSize: 16, weight: .regular)
+        }
     }
     
     enum Image {
+        enum Profile {
+            static let calendar = UIImage(named: "calendar")
+            static let location = UIImage(named: "location")
+        }
+        
         enum Home {
             static let tweetCellAvatar = UIImage(systemName: "person.circle")
             static let tweetCellReply = UIImage(named: "replyIcon")
@@ -37,15 +54,18 @@ enum Resources {
         }
         
         enum TabBar {
-            static let homeIcon = UIImage(systemName: "house")
-            static let searchIcon = UIImage(systemName: "magnifyingglass")
-            static let notificationsIcon = UIImage(systemName: "bell")
-            static let directMessagesIcon = UIImage(systemName: "envelope")
+            static let homeIcon = UIImage(named: "homeIcon")
+            static let searchIcon = UIImage(named: "searchIcon")
+            static let communitiesIcon = UIImage(named: "communitiesIcon")
+            static let notificationsIcon = UIImage(named: "notificationsIcon")
+            static let directMessagesIcon = UIImage(named: "directMessagesIcon")
             
-            static let homeIconFill = UIImage(systemName: "house.fill")
+            static let homeIconFill = UIImage(named: "homeIconFill")
             static let searchIconFill = UIImage(systemName: "text.magnifyingglass")
-            static let notificationsIconFill = UIImage(systemName: "bell.fill")
-            static let directMessagesIconFill = UIImage(systemName: "envelope.fill")
+            static let communitiesIconFill = UIImage(named: "communitiesIconFill")
+            static let notificationsIconFill = UIImage(named: "notificationsIconFill")
+            static let directMessagesIconFill = UIImage(named: "directMessagesIconFill")
         }
     }
 }
+

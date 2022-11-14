@@ -9,22 +9,11 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    enum Constants {
-        static let dividerHeight: CGFloat = 1
-        static let logoSize: CGFloat = 36
-    }
-    
     // MARK: - UI elements
     
-    private let timelineTableView: UITableView = {
+    private let tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemBackground
-        return view
-    }()
-    
-    private let divider: UIView = {
-        let view = UIView()
-        view.backgroundColor = .secondarySystemBackground
         return view
     }()
     
@@ -41,32 +30,31 @@ final class HomeViewController: UIViewController {
 
 // MARK: - Setups
 
-extension HomeViewController {
-    private func setupSuperview() {
+private extension HomeViewController {
+    func setupSuperview() {
         view.backgroundColor = .systemBackground
     }
     
-    private func setupTableView() {
-        timelineTableView.delegate = self
-        timelineTableView.dataSource = self
-        timelineTableView.register(
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(
             TweetTableViewCell.self,
             forCellReuseIdentifier: TweetTableViewCell.id
         )
     }
     
-    private func setupSubviews() {
-        view.addSubview(divider)
-        view.addSubview(timelineTableView)
+    func setupSubviews() {
+        view.addSubview(tableView)
         setupLayout()
     }
     
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         setupTitleView()
         setupProfileBarButton()
     }
     
-    private func setupTitleView() {
+    func setupTitleView() {
         let logoImageView = UIImageView(
             frame: CGRect(
                 origin: .zero,
@@ -87,7 +75,7 @@ extension HomeViewController {
         navigationItem.titleView = titleView
     }
     
-    private func setupProfileBarButton() {
+    func setupProfileBarButton() {
         let profileImage = UIImage(systemName: "person")
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: profileImage,
@@ -155,20 +143,18 @@ extension HomeViewController: TweetTableViewCellDelegate {
 // MARK: - Layout
 
 private extension HomeViewController {
+    enum Constants {
+        static let logoSize: CGFloat = 36
+    }
+    
     func setupLayout() {
-        divider.prepareForAutoLayout()
-        timelineTableView.prepareForAutoLayout()
+        tableView.prepareForAutoLayout()
         
         let constraints = [
-            divider.heightAnchor.constraint(equalToConstant: Constants.dividerHeight),
-            divider.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            divider.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            divider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            timelineTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            timelineTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            timelineTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            timelineTableView.bottomAnchor.constraint(equalTo: divider.topAnchor)
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

@@ -10,9 +10,13 @@
 - Profile header
 - Profile header tab buttons
 - Dynamic selected tab indicator
-
-## 🏗️ In progress:
 - Edit profile button
 
-https://user-images.githubusercontent.com/100859587/201944860-128bd583-5fde-4ed2-b4b5-c809b22a39c8.mp4
+## 🏗️ In progress:
+- Connect Firebase
+
+https://user-images.githubusercontent.com/100859587/202020948-8c29a0ee-cf1a-4767-8546-2385b0461f0b.mp4
+
+![merge_from_ofoct](https://user-images.githubusercontent.com/100859587/202021087-2f02ad6a-0c57-4346-8f1d-f0e70c054431.jpg)
+
 

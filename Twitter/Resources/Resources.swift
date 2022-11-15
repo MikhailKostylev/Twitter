@@ -22,7 +22,7 @@ enum Resources {
     }
     
     enum Color {
-        static let twitter = UIColor(named: "twitter")
+        static let twitterBlue = UIColor(named: "twitterBlue")
     }
     
     enum Font {

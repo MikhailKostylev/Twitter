@@ -20,18 +20,6 @@ final class TabBarController: UITabBarController {
     
     // MARK: - Setups
     
-    private func generateNavigationController(
-        title: String?,
-        image: UIImage?,
-        selectedImage: UIImage?,
-        view: UIViewController
-    ) -> UIViewController {
-        view.tabBarItem.title = title
-        view.tabBarItem.image = image
-        view.tabBarItem.selectedImage = selectedImage
-        return UINavigationController(rootViewController: view)
-    }
-    
     private func configureTabBar() {
         tabBar.tintColor = .label
         tabBar.unselectedItemTintColor = .label
@@ -79,6 +67,18 @@ final class TabBarController: UITabBarController {
         )
         dividerView.backgroundColor = .secondarySystemBackground
         tabBar.addSubview(dividerView)
+    }
+    
+    private func generateNavigationController(
+        title: String?,
+        image: UIImage?,
+        selectedImage: UIImage?,
+        view: UIViewController
+    ) -> UIViewController {
+        view.tabBarItem.title = title
+        view.tabBarItem.image = image
+        view.tabBarItem.selectedImage = selectedImage
+        return UINavigationController(rootViewController: view)
     }
 }
 

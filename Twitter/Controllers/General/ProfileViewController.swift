@@ -32,19 +32,19 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSuperview()
-        setupTableView()
         addSubviews()
+        setupTableView()
         setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        hideNavBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = false
+        showNavBar()
     }
 }
 
@@ -121,6 +121,14 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - Actions
 
 private extension ProfileViewController {
+    func hideNavBar() {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    func showNavBar() {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     func hideStatusBar() {
         UIView.animate(withDuration: 0.3, delay: 0,options: .curveLinear) {
             self.statusBar.alpha = 0

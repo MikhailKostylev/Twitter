@@ -55,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F48987D2923F2A000C08021 /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				1F8685902920322D00F83BF5 /* TabBarController.swift */,
+			);
+			path = "Tab Bar";
+			sourceTree = "<group>";
+		};
 		1F5FD248292131E70047139B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +141,7 @@
 			children = (
 				1F803E682921A723007CAE32 /* General */,
 				1F8685A32920352C00F83BF5 /* Core */,
+				1F48987D2923F2A000C08021 /* Tab Bar */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,7 +154,6 @@
 				1FF3F97D2922580300ED0B37 /* CommunitiesViewController.swift */,
 				1F8685A82920359200F83BF5 /* NotificationsViewController.swift */,
 				1F8685AA292035B700F83BF5 /* DirectMessagesViewController.swift */,
-				1F8685902920322D00F83BF5 /* TabBarController.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";

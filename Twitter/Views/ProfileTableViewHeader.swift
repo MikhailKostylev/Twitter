@@ -11,11 +11,14 @@ final class ProfileTableViewHeader: UIView {
     
     private var selectedTabIndex = 0 {
         didSet {
-            print(selectedTabIndex)
+            setupSelectedTabButton()
         }
     }
     
     private var headerImageHeight: CGFloat?
+    
+    private var leadingAnchors = [NSLayoutConstraint]()
+    private var trailingAnchors = [NSLayoutConstraint]()
     
     // MARK: - UI elements
     
@@ -170,9 +173,16 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
+    private let tabIndicator: UIView = {
+        let view = UIView()
+        view.backgroundColor = R.Color.twitterBlue
+        view.layer.cornerRadius = C.tabIndicatorCornerRadius
+        return view
+    }()
+    
     private let divider: UIView = {
         let view = UIView()
-        view.backgroundColor = R.Color.twitter
+        view.backgroundColor = .systemGray4
         return view
     }()
     
@@ -183,6 +193,7 @@ final class ProfileTableViewHeader: UIView {
         super.init(frame: frame)
         setupView()
         addSubviews()
+        setupSelectedTabButton()
         addTabButtonActions()
         setupLayout()
     }
@@ -217,6 +228,7 @@ private extension ProfileTableViewHeader {
             followersCountLabel,
             followersTextLabel,
             tabsStackView,
+            tabIndicator,
             divider
         ].forEach { addSubview($0) }
     }
@@ -231,6 +243,29 @@ private extension ProfileTableViewHeader {
 private extension ProfileTableViewHeader {
     @objc func didTapTabButton(_ sender: UIButton) {
         selectedTabIndex = sender.tag
+        print(sender.tag)
+    }
+    
+    func setupSelectedTabButton() {
+        for (index, button) in tabs.enumerated() {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                if index == self.selectedTabIndex {
+                    button.tintColor = .label
+                } else {
+                    button.tintColor = .secondaryLabel
+                }
+                
+                self.changeSelectedTabIndicator(with: button.tag)
+            }
+        }
+    }
+    
+    func changeSelectedTabIndicator(with index: Int) {
+        if !self.leadingAnchors.isEmpty && !self.trailingAnchors.isEmpty {
+            self.leadingAnchors[index].isActive = index == self.selectedTabIndex ? true : false
+            self.trailingAnchors[index].isActive = index == self.selectedTabIndex ? true : false
+            self.layoutIfNeeded()
+        }
     }
 }
 
@@ -282,6 +317,10 @@ private extension ProfileTableViewHeader {
         static let tabsStackHeight: CGFloat = 35
         
         static let dividerHeight: CGFloat = 1
+        static let tabIndicatorHeight: CGFloat = 3
+        static var tabIndicatorCornerRadius: CGFloat {
+            tabIndicatorHeight / 2
+        }
     }
     
     func setupLayout() {
@@ -301,8 +340,16 @@ private extension ProfileTableViewHeader {
             followersCountLabel,
             followersTextLabel,
             tabsStackView,
+            tabIndicator,
             divider
         ].forEach { $0.prepareForAutoLayout() }
+        
+        tabs.forEach { button in
+            let leadingAnchor = tabIndicator.leadingAnchor.constraint(equalTo: tabsStackView.arrangedSubviews[button.tag].leadingAnchor)
+            let trailingAnchor = tabIndicator.trailingAnchor.constraint(equalTo: tabsStackView.arrangedSubviews[button.tag].trailingAnchor)
+            leadingAnchors.append(leadingAnchor)
+            trailingAnchors.append(trailingAnchor)
+        }
         
         let headerImageHeight = headerImageHeight ?? C.headerImageHeight
         
@@ -368,7 +415,12 @@ private extension ProfileTableViewHeader {
             divider.leadingAnchor.constraint(equalTo: leadingAnchor),
             divider.trailingAnchor.constraint(equalTo: trailingAnchor),
             divider.bottomAnchor.constraint(equalTo: bottomAnchor),
-            divider.heightAnchor.constraint(equalToConstant: C.dividerHeight)
+            divider.heightAnchor.constraint(equalToConstant: C.dividerHeight),
+            
+            leadingAnchors.first!,
+            trailingAnchors.first!,
+            tabIndicator.heightAnchor.constraint(equalToConstant: C.tabIndicatorHeight),
+            tabIndicator.bottomAnchor.constraint(equalTo: divider.topAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

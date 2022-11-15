@@ -23,7 +23,8 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupSuperview()
         setupTableView()
-        setupSubviews()
+        addSubviews()
+        setupLayout()
         setupNavigationBar()
     }
 }
@@ -44,9 +45,8 @@ private extension HomeViewController {
         )
     }
     
-    func setupSubviews() {
+    func addSubviews() {
         view.addSubview(tableView)
-        setupLayout()
     }
     
     func setupNavigationBar() {

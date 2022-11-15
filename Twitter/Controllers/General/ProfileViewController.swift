@@ -9,8 +9,20 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    private var isStatusBarHidden = true
+    
+    // MARK: - UI elements
+    
+    private let statusBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.alpha = 0
+        return view
+    }()
+    
     private let tableView: UITableView = {
         let view = UITableView()
+        view.contentInsetAdjustmentBehavior = .never
         view.backgroundColor = .systemBackground
         return view
     }()
@@ -21,7 +33,18 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setupSuperview()
         setupTableView()
-        setupSubviews()
+        addSubviews()
+        setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
     }
 }
 
@@ -30,7 +53,6 @@ final class ProfileViewController: UIViewController {
 private extension ProfileViewController {
     func setupSuperview() {
         view.backgroundColor = .systemBackground
-        navigationItem.title = R.Text.Person.title
     }
     
     func setupTableView() {
@@ -43,17 +65,18 @@ private extension ProfileViewController {
         )
     }
     
-    func setupSubviews() {
+    func addSubviews() {
         view.addSubview(tableView)
-        setupLayout()
+        view.addSubview(statusBar)
     }
     
     func createHeaderView() -> UIView {
         ProfileTableViewHeader(
             frame: CGRect(
                 origin: .zero,
-                size: CGSize(width: view.width, height: Constants.profileHeaderHeight)
-            )
+                size: CGSize(width: view.width, height: C.profileHeaderHeight)
+            ),
+            headerImageHeight: C.profileHeaderImageHeight
         )
     }
 }
@@ -81,6 +104,34 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let yPosition = scrollView.contentOffset.y
+        if yPosition > C.profileHeaderImageHeight && isStatusBarHidden {
+            isStatusBarHidden = false
+            showStatusBar()
+            
+        } else if yPosition < C.profileHeaderImageHeight && !isStatusBarHidden {
+            isStatusBarHidden = true
+            hideStatusBar()
+        }
+    }
+}
+
+// MARK: - Actions
+
+private extension ProfileViewController {
+    func hideStatusBar() {
+        UIView.animate(withDuration: 0.3, delay: 0,options: .curveLinear) {
+            self.statusBar.alpha = 0
+        }
+    }
+    
+    func showStatusBar() {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear) {
+            self.statusBar.alpha = 1
+        }
+    }
 }
 
 // MARK: - Tweet Cell Delegate
@@ -106,19 +157,27 @@ extension ProfileViewController: TweetTableViewCellDelegate {
 // MARK: - Layout
 
 private extension ProfileViewController {
+    typealias C = Constants
+    
     enum Constants {
-        static let logoSize: CGFloat = 36
-        static let profileHeaderHeight: CGFloat = 400
+        static let profileHeaderHeight: CGFloat = 425
+        static let profileHeaderImageHeight: CGFloat = 150
     }
     
     func setupLayout() {
         tableView.prepareForAutoLayout()
+        statusBar.prepareForAutoLayout()
         
         let constraints = [
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            statusBar.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

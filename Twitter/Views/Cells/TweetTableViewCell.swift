@@ -47,7 +47,7 @@ final class TweetTableViewCell: UITableViewCell {
         let view = UILabel()
         view.text = "@username"
         view.numberOfLines = 1
-        view.textColor = .gray
+        view.textColor = .secondaryLabel
         view.textAlignment = .left
         view.font = R.Font.TweetCell.username
         return view
@@ -65,28 +65,28 @@ final class TweetTableViewCell: UITableViewCell {
     private let replyButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellReply, for: .normal)
-        button.tintColor = .gray
+        button.tintColor = .secondaryLabel
         return button
     }()
     
     private let retweetButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellRetweet, for: .normal)
-        button.tintColor = .gray
+        button.tintColor = .secondaryLabel
         return button
     }()
     
     private let likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellLike, for: .normal)
-        button.tintColor = .gray
+        button.tintColor = .secondaryLabel
         return button
     }()
     
     private let shareButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(R.Image.Home.tweetCellShare, for: .normal)
-        button.tintColor = .gray
+        button.tintColor = .secondaryLabel
         return button
     }()
     
@@ -95,7 +95,8 @@ final class TweetTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupContentView()
-        setupSubviews()
+        addSubviews()
+        setupLayout()
         setupButtonActions()
     }
     
@@ -117,16 +118,17 @@ private extension TweetTableViewCell {
         contentView.clipsToBounds = true
     }
     
-    func setupSubviews() {
-        contentView.addSubview(avatarImageView)
-        contentView.addSubview(displayNameLabel)
-        contentView.addSubview(usernameLabel)
-        contentView.addSubview(textContentLabel)
-        contentView.addSubview(replyButton)
-        contentView.addSubview(retweetButton)
-        contentView.addSubview(likeButton)
-        contentView.addSubview(shareButton)
-        setupLayout()
+    func addSubviews() {
+        [
+            avatarImageView,
+            displayNameLabel,
+            usernameLabel,
+            textContentLabel,
+            replyButton,
+            retweetButton,
+            likeButton,
+            shareButton
+        ].forEach { contentView.addSubview($0) }
     }
     
     func setupButtonActions() {
@@ -186,14 +188,16 @@ private extension TweetTableViewCell {
     }
     
     func setupLayout() {
-        avatarImageView.prepareForAutoLayout()
-        displayNameLabel.prepareForAutoLayout()
-        usernameLabel.prepareForAutoLayout()
-        textContentLabel.prepareForAutoLayout()
-        replyButton.prepareForAutoLayout()
-        retweetButton.prepareForAutoLayout()
-        likeButton.prepareForAutoLayout()
-        shareButton.prepareForAutoLayout()
+        [
+            avatarImageView,
+            displayNameLabel,
+            usernameLabel,
+            textContentLabel,
+            replyButton,
+            retweetButton,
+            likeButton,
+            shareButton
+        ].forEach { $0.prepareForAutoLayout() }
         
         let constraints = [
             avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: C.avatarTopPadding),

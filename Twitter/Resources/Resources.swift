@@ -12,6 +12,7 @@ typealias R = Resources
 enum Resources {
     enum Text {
         enum Profile {
+            static let edit = "Edit"
             static let following = "Following"
             static let followers = "Followers"
             static let tab1 = "Tweets"
@@ -29,6 +30,7 @@ enum Resources {
         enum ProfileHeader {
             static let displayName = UIFont.systemFont(ofSize: 22, weight: .bold)
             static let username = UIFont.systemFont(ofSize: 18, weight: .regular)
+            static let edit = UIFont.systemFont(ofSize: 14, weight: .bold)
             static let userBio = UIFont.systemFont(ofSize: 16, weight: .medium)
             static let location = UIFont.systemFont(ofSize: 14, weight: .regular)
             static let joinDate = UIFont.systemFont(ofSize: 14, weight: .regular)

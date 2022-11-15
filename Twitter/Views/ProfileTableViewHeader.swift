@@ -42,16 +42,27 @@ final class ProfileTableViewHeader: UIView {
     private let avatarImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.image = UIImage(systemName: "person.circle")
+        view.image = UIImage(named: "testAvatar")
         view.backgroundColor = .secondarySystemBackground
         view.layer.cornerRadius = C.avatarCornerRadius
         view.layer.masksToBounds = true
         return view
     }()
     
+    private let editButton: UIButton = {
+        let view = UIButton()
+        view.setTitle(R.Text.Profile.edit, for: .normal)
+        view.setTitleColor(.label, for: .normal)
+        view.titleLabel?.font = R.Font.ProfileHeader.edit
+        view.layer.cornerRadius = C.editCornerRadius
+        view.layer.borderWidth = C.editBorderWidth
+        view.layer.borderColor = UIColor.secondaryLabel.cgColor
+        return view
+    }()
+    
     private let displayNameLabel: UILabel = {
         let view = UILabel()
-        view.text = "Display Name"
+        view.text = "Mikhail Kostylev"
         view.numberOfLines = 1
         view.textColor = .label
         view.textAlignment = .left
@@ -61,7 +72,7 @@ final class ProfileTableViewHeader: UIView {
     
     private let usernameLabel: UILabel = {
         let view = UILabel()
-        view.text = "@username"
+        view.text = "@MikhailKostyle3"
         view.numberOfLines = 1
         view.textColor = .secondaryLabel
         view.textAlignment = .left
@@ -71,7 +82,7 @@ final class ProfileTableViewHeader: UIView {
     
     private let userBioLabel: UILabel = {
         let view = UILabel()
-        view.text = "iOS Developer"
+        view.text = " iOS Developer"
         view.numberOfLines = 1
         view.textColor = .label
         view.textAlignment = .left
@@ -194,7 +205,7 @@ final class ProfileTableViewHeader: UIView {
         setupView()
         addSubviews()
         setupSelectedTabButton()
-        addTabButtonActions()
+        addButtonActions()
         setupLayout()
     }
     
@@ -216,6 +227,7 @@ private extension ProfileTableViewHeader {
             headerImageView,
             avatarBackgroundCircle,
             avatarImageView,
+            editButton,
             displayNameLabel,
             usernameLabel,
             userBioLabel,
@@ -233,7 +245,8 @@ private extension ProfileTableViewHeader {
         ].forEach { addSubview($0) }
     }
     
-    func addTabButtonActions() {
+    func addButtonActions() {
+        editButton.addTarget(self, action: #selector(didTapEdit), for: .touchUpInside)
         tabs.forEach { $0.addTarget(self, action: #selector(didTapTabButton(_:)), for: .touchUpInside) }
     }
 }
@@ -241,6 +254,10 @@ private extension ProfileTableViewHeader {
 // MARK: - Actions
 
 private extension ProfileTableViewHeader {
+    @objc func didTapEdit() {
+        print(#function)
+    }
+    
     @objc func didTapTabButton(_ sender: UIButton) {
         selectedTabIndex = sender.tag
         print(sender.tag)
@@ -288,9 +305,18 @@ private extension ProfileTableViewHeader {
         static let avatarLeftPadding: CGFloat = 20
         static let avatarYPadding: CGFloat = 10
         static let avatarBorderWidth: CGFloat = 4
-        static let avatarSize: CGFloat = 80
+        static let avatarSize: CGFloat = 60
         static var avatarCornerRadius: CGFloat {
             avatarSize / 2
+        }
+        
+        static let editBorderWidth: CGFloat = 1
+        static let editTop: CGFloat = 10
+        static let editRight: CGFloat = -20
+        static let editWidth: CGFloat = 80
+        static let editHeight: CGFloat = 30
+        static var editCornerRadius: CGFloat {
+            editHeight / 2
         }
         
         static let displayNameTop: CGFloat = 5
@@ -328,6 +354,7 @@ private extension ProfileTableViewHeader {
             headerImageView,
             avatarBackgroundCircle,
             avatarImageView,
+            editButton,
             displayNameLabel,
             usernameLabel,
             userBioLabel,
@@ -368,6 +395,11 @@ private extension ProfileTableViewHeader {
             avatarBackgroundCircle.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
             avatarBackgroundCircle.widthAnchor.constraint(equalToConstant: C.avatarBackgroundCircleSize),
             avatarBackgroundCircle.heightAnchor.constraint(equalToConstant: C.avatarBackgroundCircleSize),
+            
+            editButton.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: C.editTop),
+            editButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: C.editRight),
+            editButton.widthAnchor.constraint(equalToConstant: C.editWidth),
+            editButton.heightAnchor.constraint(equalToConstant: C.editHeight),
             
             displayNameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: C.displayNameTop),
             displayNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),

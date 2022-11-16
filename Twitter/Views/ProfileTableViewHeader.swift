@@ -57,6 +57,7 @@ final class ProfileTableViewHeader: UIView {
         view.layer.cornerRadius = C.editCornerRadius
         view.layer.borderWidth = C.editBorderWidth
         view.layer.borderColor = UIColor.secondaryLabel.cgColor
+        view.layer.masksToBounds = true
         return view
     }()
     

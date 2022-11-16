@@ -6,16 +6,39 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 final class TabBarController: UITabBarController {
-    
     enum Constants {
         static let dividerHeight: CGFloat = 1
     }
     
+    private var onboardingPresented = false
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTabBar()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !onboardingPresented {
+            presentOnboardingIfNeeded()
+        }
+    }
+    
+    // MARK: - Auth Input
+    
+    private func presentOnboardingIfNeeded() {
+        if !AuthManager.shared.isUserSignedIn {
+            onboardingPresented = true
+            let vc = OnboardingViewController()
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.modalPresentationStyle = .fullScreen
+            present(navVC, animated: false)
+        }
     }
     
     // MARK: - Setups

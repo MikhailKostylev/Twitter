@@ -10,7 +10,25 @@ import UIKit
 typealias R = Resources
 
 enum Resources {
+    enum Color {
+        static let twitterBlue = UIColor(named: "twitterBlue")
+    }
+    
     enum Text {
+        enum Register {
+            static let title = "Create your account"
+            static let emailPlaceholder = "Email"
+            static let passwordPlaceholder = "Password"
+            static let register = "Create Account"
+        }
+        
+        enum Onboarding {
+            static let welcome = "See what's happening in the world right now."
+            static let createAccount = "Create Account"
+            static let loginLabel = "Already have an account?"
+            static let loginButton = "Login"
+        }
+        
         enum Profile {
             static let edit = "Edit"
             static let following = "Following"
@@ -22,11 +40,19 @@ enum Resources {
         }
     }
     
-    enum Color {
-        static let twitterBlue = UIColor(named: "twitterBlue")
-    }
-    
     enum Font {
+        enum Register {
+            static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
+            static let register = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
+        
+        enum Onboarding {
+            static let welcome = UIFont.systemFont(ofSize: 32, weight: .heavy)
+            static let createAccount = UIFont.systemFont(ofSize: 24, weight: .bold)
+            static let loginLabel = UIFont.systemFont(ofSize: 18, weight: .regular)
+            static let loginButton = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
+        
         enum ProfileHeader {
             static let displayName = UIFont.systemFont(ofSize: 22, weight: .bold)
             static let username = UIFont.systemFont(ofSize: 18, weight: .regular)

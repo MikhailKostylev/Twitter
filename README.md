@@ -4,13 +4,15 @@
 
 ### UI 
 - Tab Bar
-- Home tab
+- Home screen tab
 - Home section Tweet cells
-- Profile VC
+- Profile screen
 - Profile header
 - Profile header tab buttons
 - Dynamic selected tab indicator
 - Edit profile button
+- Onboarding screen
+- Register screen
 
 ## 🏗️ In progress:
 - Connect Firebase

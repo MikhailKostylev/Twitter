@@ -11,6 +11,14 @@ final class OnboardingViewController: UIViewController {
     
     // MARK: - UI elements
     
+    private let logoImageView: UIImageView = {
+        let view = UIImageView()
+        view.image = R.Image.Onboarding.logo
+        view.contentMode = .scaleAspectFit
+        view.tintColor = R.Color.twitterBlue
+        return view
+    }()
+    
     private let welcomeLabel: UILabel = {
         let view = UILabel()
         view.numberOfLines = 0
@@ -68,6 +76,7 @@ private extension OnboardingViewController {
     
     func addSubviews() {
         [
+            logoImageView,
             welcomeLabel,
             createAccountButton,
             loginLabel,
@@ -86,11 +95,18 @@ private extension OnboardingViewController {
 private extension OnboardingViewController {
     @objc func didTapCreateAccount() {
         let vc = RegisterViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        setupAndPush(viewController: vc)
     }
     
     @objc private func didTapLogin() {
-        
+        let vc = LoginViewController()
+        setupAndPush(viewController: vc)
+    }
+    
+    func setupAndPush(viewController vc: UIViewController) {
+        navigationController?.navigationBar.topItem?.backButtonDisplayMode = .minimal
+        navigationController?.navigationBar.tintColor = R.Color.twitterBlue
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -100,6 +116,9 @@ private extension OnboardingViewController {
     typealias C = Constants
     
     enum Constants {
+        static let logoTop: CGFloat = 20
+        static let logoSize: CGFloat = 200
+        
         static let welcomeLeft: CGFloat = 20
         static let welcomeRight: CGFloat = -20
         
@@ -109,10 +128,16 @@ private extension OnboardingViewController {
         static var createAccountCornerRadius: CGFloat {
             createAccountHeight / 2
         }
+        
+        static let loginLabelLeft: CGFloat = 20
+        static let loginLabelBottom: CGFloat = -20
+        
+        static let loginButtonLeft: CGFloat = 10
     }
     
     func setupLayout() {
         [
+            logoImageView,
             welcomeLabel,
             createAccountButton,
             loginLabel,
@@ -120,6 +145,11 @@ private extension OnboardingViewController {
         ].forEach { $0.prepareForAutoLayout() }
         
         let constraints = [
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: C.logoTop),
+            logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: C.logoSize),
+            logoImageView.heightAnchor.constraint(equalToConstant: C.logoSize),
+            
             welcomeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: C.welcomeLeft),
             welcomeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: C.welcomeRight),
             welcomeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -129,11 +159,11 @@ private extension OnboardingViewController {
             createAccountButton.widthAnchor.constraint(equalTo: welcomeLabel.widthAnchor, constant: C.createAccountWidth),
             createAccountButton.heightAnchor.constraint(equalToConstant: C.createAccountHeight),
             
-            loginLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            loginLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            loginLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: C.loginLabelLeft),
+            loginLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: C.loginLabelBottom),
             
             loginButton.centerYAnchor.constraint(equalTo: loginLabel.centerYAnchor),
-            loginButton.leadingAnchor.constraint(equalTo: loginLabel.trailingAnchor, constant: 10)
+            loginButton.leadingAnchor.constraint(equalTo: loginLabel.trailingAnchor, constant: C.loginButtonLeft),
         ]
         
         NSLayoutConstraint.activate(constraints)

@@ -1,14 +1,14 @@
 //
-//  RegisterViewController.swift
+//  LoginViewController.swift
 //  Twitter
 //
-//  Created by Mikhail Kostylev on 16.11.2022.
+//  Created by Mikhail Kostylev on 17.11.2022.
 //
 
 import UIKit
 import Combine
 
-final class RegisterViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     private var viewModel = AuthenticationViewModel()
     private var subscriptions: Set<AnyCancellable> = []
@@ -19,8 +19,8 @@ final class RegisterViewController: UIViewController {
         let view = UILabel()
         view.numberOfLines = 0
         view.textAlignment = .center
-        view.text = R.Text.Register.title
-        view.font = R.Font.Register.title
+        view.text = R.Text.Login.title
+        view.font = R.Font.Login.title
         view.textColor = .label
         return view
     }()
@@ -33,7 +33,7 @@ final class RegisterViewController: UIViewController {
         view.autocapitalizationType = .none
         view.backgroundColor = .secondarySystemBackground
         view.attributedPlaceholder = NSAttributedString(
-            string: R.Text.Register.emailPlaceholder,
+            string: R.Text.Login.emailPlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
         )
         view.layer.masksToBounds = true
@@ -58,7 +58,7 @@ final class RegisterViewController: UIViewController {
         view.autocorrectionType = .no
         view.autocapitalizationType = .none
         view.attributedPlaceholder = NSAttributedString(
-            string: R.Text.Register.passwordPlaceholder,
+            string: R.Text.Login.passwordPlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
         )
         view.isSecureTextEntry = true
@@ -76,14 +76,14 @@ final class RegisterViewController: UIViewController {
         return view
     }()
     
-    private let registerButton: UIButton = {
+    private let loginButton: UIButton = {
         let view = UIButton(type: .system)
-        view.setTitle(R.Text.Register.register, for: .normal)
-        view.titleLabel?.font = R.Font.Register.register
+        view.setTitle(R.Text.Login.login, for: .normal)
+        view.titleLabel?.font = R.Font.Login.login
         view.tintColor = .white
         view.backgroundColor = R.Color.twitterBlue
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = C.registerCornerRadius
+        view.layer.cornerRadius = C.loginCornerRadius
         view.isEnabled = false
         return view
     }()
@@ -92,10 +92,10 @@ final class RegisterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBindings()
         setupSuperview()
         addSubviews()
         setupLayout()
+        setupBindings()
         addButtonAction()
         addTextFieldsAction()
         hideKeyboardWhenTappedAround()
@@ -104,7 +104,7 @@ final class RegisterViewController: UIViewController {
 
 // MARK: - Setups
 
-extension RegisterViewController {
+extension LoginViewController {
     func setupSuperview() {
         view.backgroundColor = .systemBackground
     }
@@ -114,12 +114,12 @@ extension RegisterViewController {
             titleLabel,
             emailTextField,
             passwordTextField,
-            registerButton
+            loginButton
         ].forEach { view.addSubview($0) }
     }
     
     func addButtonAction() {
-        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
     }
     
     func addTextFieldsAction() {
@@ -129,7 +129,7 @@ extension RegisterViewController {
     
     func setupBindings() {
         viewModel.$isAuthenticationFormValid.sink { [weak self] validationState in
-            self?.registerButton.isEnabled = validationState
+            self?.loginButton.isEnabled = validationState
         } .store(in: &subscriptions)
         
         viewModel.$user.sink { [weak self] user in
@@ -139,22 +139,22 @@ extension RegisterViewController {
         
         viewModel.$error.sink { [weak self] errorString in
             guard let error = errorString else { return }
-            self?.failedToRegister(with: error)
+            self?.failedToLogin(with: error)
         }.store(in: &subscriptions)
     }
 }
 
 // MARK: - Actions
 
-private extension RegisterViewController {
-    @objc func didTapRegister() {
-        guard registerButton.isEnabled else { return }
-        viewModel.registerUser ()
+private extension LoginViewController {
+    @objc func didTapLogin() {
+        guard loginButton.isEnabled else { return }
+        viewModel.loginUser()
     }
     
     @objc func didChangeEmailField() {
         viewModel.email = emailTextField.text
-        viewModel.validateAuthenticationForm ()
+        viewModel.validateAuthenticationForm()
     }
     
     @objc func didChangePasswordField() {
@@ -167,20 +167,20 @@ private extension RegisterViewController {
         passwordTextField.resignFirstResponder()
     }
     
-    func failedToRegister(with error: String) {
-        presentAlert(title: R.Text.Register.error, message: error)
+    func failedToLogin(with error: String) {
+        presentAlert(title: R.Text.Login.error, message: error)
     }
 }
 
 // MARK: - TextField Delegate
 
-extension RegisterViewController: UITextFieldDelegate {
+extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailTextField {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
             didTapKeyboardDone()
-            didTapRegister()
+            didTapLogin()
         }
         return true
     }
@@ -188,7 +188,7 @@ extension RegisterViewController: UITextFieldDelegate {
 
 // MARK: - Layout
 
-private extension RegisterViewController {
+private extension LoginViewController {
     typealias C = Constants
     
     enum Constants {
@@ -208,12 +208,12 @@ private extension RegisterViewController {
         
         static let passwordTop: CGFloat = 20
         
-        static let registerTop: CGFloat = 30
-        static let registerRight: CGFloat = -20
-        static let registerMultiplier: CGFloat = 0.5
-        static let registerHeight: CGFloat = 50
-        static var registerCornerRadius: CGFloat {
-            registerHeight / 2
+        static let loginTop: CGFloat = 30
+        static let loginRight: CGFloat = -20
+        static let loginMultiplier: CGFloat = 0.5
+        static let loginHeight: CGFloat = 50
+        static var loginCornerRadius: CGFloat {
+            loginHeight / 2
         }
     }
     
@@ -222,7 +222,7 @@ private extension RegisterViewController {
             titleLabel,
             emailTextField,
             passwordTextField,
-            registerButton
+            loginButton
         ].forEach { $0.prepareForAutoLayout() }
         
         let constraints = [
@@ -239,10 +239,10 @@ private extension RegisterViewController {
             passwordTextField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalTo: emailTextField.heightAnchor),
             
-            registerButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: C.registerTop),
-            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: C.registerRight),
-            registerButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: C.registerMultiplier, constant: C.registerRight),
-            registerButton.heightAnchor.constraint(equalToConstant: C.registerHeight)
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: C.loginTop),
+            loginButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: C.loginRight),
+            loginButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: C.loginMultiplier, constant: C.loginRight),
+            loginButton.heightAnchor.constraint(equalToConstant: C.loginHeight)
         ]
         
         NSLayoutConstraint.activate(constraints)

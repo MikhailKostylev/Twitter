@@ -15,11 +15,20 @@ enum Resources {
     }
     
     enum Text {
+        enum Login {
+            static let title = "Login to your account"
+            static let emailPlaceholder = "Email"
+            static let passwordPlaceholder = "Password"
+            static let login = "Login"
+            static let error = "Failed to login"
+        }
+        
         enum Register {
             static let title = "Create your account"
             static let emailPlaceholder = "Email"
             static let passwordPlaceholder = "Password"
             static let register = "Create Account"
+            static let error = "Failed to register"
         }
         
         enum Onboarding {
@@ -51,6 +60,11 @@ enum Resources {
     }
     
     enum Font {
+        enum Login {
+            static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
+            static let login = UIFont.systemFont(ofSize: 18, weight: .medium)
+        }
+        
         enum Register {
             static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
             static let register = UIFont.systemFont(ofSize: 18, weight: .medium)
@@ -84,6 +98,11 @@ enum Resources {
     }
     
     enum Image {
+        enum Onboarding {
+            static let logo = UIImage(named: "twitterLogoMedium")
+
+        }
+        
         enum Profile {
             static let calendar = UIImage(named: "calendar")
             static let location = UIImage(named: "location")

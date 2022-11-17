@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F541812292643F80095E63B /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F541811292643F80095E63B /* RegisterViewModel.swift */; };
+		1F541812292643F80095E63B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F541811292643F80095E63B /* AuthenticationViewModel.swift */; };
 		1F5418142926495C0095E63B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5418132926495C0095E63B /* String+Ext.swift */; };
 		1F54181929266D620095E63B /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F54181829266D620095E63B /* HapticsManager.swift */; };
+		1F5A3EE629269C8300447076 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5A3EE529269C8300447076 /* LoginViewController.swift */; };
 		1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5FD249292132140047139B /* TweetTableViewCell.swift */; };
 		1F803E6A2921A740007CAE32 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F803E692921A740007CAE32 /* ProfileViewController.swift */; };
 		1F80A23B292435E600655E48 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F80A23A292435E600655E48 /* GoogleService-Info.plist */; };
@@ -42,9 +43,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F541811292643F80095E63B /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		1F541811292643F80095E63B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		1F5418132926495C0095E63B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		1F54181829266D620095E63B /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		1F5A3EE529269C8300447076 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F5FD249292132140047139B /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		1F803E692921A740007CAE32 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1F80A23A292435E600655E48 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -100,7 +102,7 @@
 		1F541810292643AD0095E63B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1F541811292643F80095E63B /* RegisterViewModel.swift */,
+				1F541811292643F80095E63B /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -236,6 +238,7 @@
 			children = (
 				1FDC3BE029251347009CDEAA /* OnboardingViewController.swift */,
 				1FDC3BE2292534DD009CDEAA /* RegisterViewController.swift */,
+				1F5A3EE529269C8300447076 /* LoginViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5A3EE629269C8300447076 /* LoginViewController.swift in Sources */,
 				1F8685A72920356700F83BF5 /* SearchViewController.swift in Sources */,
 				1FDC3BDE2925110F009CDEAA /* AuthManager.swift in Sources */,
 				1FDC3BE5292572E0009CDEAA /* UIViewController+Ext.swift in Sources */,
@@ -332,7 +336,7 @@
 				1F86858D2920322D00F83BF5 /* AppDelegate.swift in Sources */,
 				1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */,
 				1F8685A92920359200F83BF5 /* NotificationsViewController.swift in Sources */,
-				1F541812292643F80095E63B /* RegisterViewModel.swift in Sources */,
+				1F541812292643F80095E63B /* AuthenticationViewModel.swift in Sources */,
 				1FF3F97E2922580300ED0B37 /* CommunitiesViewController.swift in Sources */,
 				1F86858F2920322D00F83BF5 /* SceneDelegate.swift in Sources */,
 				1FDC3BE129251347009CDEAA /* OnboardingViewController.swift in Sources */,

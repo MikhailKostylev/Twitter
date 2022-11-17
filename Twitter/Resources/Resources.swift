@@ -38,6 +38,16 @@ enum Resources {
             static let tab3 = "Media"
             static let tab4 = "Likes"
         }
+        
+        enum Home {
+            static let actionSheetTitle = "Log Out"
+            static let actionSheetMessage = "Would you like to log out?"
+            static let cancel = "Cancel"
+            static let destructive = "Log Out"
+            
+            static let alertTitle = "Whoops.."
+            static let alertMessage = "Something went wrong when logging out. Please try again."
+        }
     }
     
     enum Font {

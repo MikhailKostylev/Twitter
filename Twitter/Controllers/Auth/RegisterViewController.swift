@@ -107,6 +107,8 @@ final class RegisterViewController: UIViewController {
 extension RegisterViewController {
     func setupSuperview() {
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.topItem?.backButtonDisplayMode = .minimal
+        navigationController?.navigationBar.tintColor = R.Color.twitterBlue
     }
     
     func addSubviews() {
@@ -133,7 +135,8 @@ extension RegisterViewController {
         } .store(in: &subscriptions)
         
         viewModel.$user.sink { [weak self] user in
-            print(user)
+            guard user != nil else { return }
+            self?.dismiss(animated: true)
         }.store(in: &subscriptions)
     }
 }

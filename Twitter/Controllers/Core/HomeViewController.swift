@@ -52,6 +52,7 @@ private extension HomeViewController {
     func setupNavigationBar() {
         setupTitleView()
         setupProfileBarButton()
+        setupLogOutBarButton()
     }
     
     func setupTitleView() {
@@ -84,6 +85,15 @@ private extension HomeViewController {
             action: #selector(didTapProfile)
         )
     }
+    
+    func setupLogOutBarButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "rectangle.portrait.and.arrow.right"),
+            style: .plain,
+            target: self,
+            action: #selector(didTapLogOut)
+        )
+    }
 }
 
 // MARK: - Actions
@@ -92,6 +102,65 @@ private extension HomeViewController {
     @objc func didTapProfile() {
         let vc = ProfileViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func didTapLogOut() {
+        HapticsManager.shared.vibrate(for: .warning)
+        presentActionSheetAlert()
+    }
+}
+
+// MARK: - Log Out
+
+private extension HomeViewController {
+    func presentActionSheetAlert() {
+        let actionSheet = UIAlertController(
+            title: R.Text.Home.actionSheetTitle,
+            message: R.Text.Home.actionSheetMessage,
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: R.Text.Home.cancel, style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: R.Text.Home.destructive, style: .destructive) { [weak self] _ in
+            self?.logOut()
+        })
+        
+        present(actionSheet, animated: true)
+    }
+    
+    func logOut() {
+        AuthManager.shared.logOut { [weak self] success in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                if success {
+                    HapticsManager.shared.vibrate(for: .success)
+                    self.resetNavigation()
+                    self.presentOnboarding()
+                } else {
+                    HapticsManager.shared.vibrate(for: .error)
+                    self.failedToLogOut()
+                }
+            }
+        }
+    }
+    
+    func resetNavigation() {
+        navigationController?.popToRootViewController(animated: false)
+        tabBarController?.selectedIndex = 0
+    }
+    
+    func presentOnboarding() {
+        let vc = OnboardingViewController()
+        let navigationController = UINavigationController(rootViewController: vc)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+    }
+    
+    func failedToLogOut() {
+        presentAlert(
+            title: R.Text.Home.alertTitle,
+            message: R.Text.Home.alertMessage
+        )
     }
 }
 

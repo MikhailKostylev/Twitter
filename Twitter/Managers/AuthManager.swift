@@ -27,4 +27,13 @@ final class AuthManager {
             .map(\.user)
             .eraseToAnyPublisher()
     }
+    
+    func logOut(completion: @escaping (Bool) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(true)
+        } catch {
+            completion(false)
+        }
+    }
 }

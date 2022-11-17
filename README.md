@@ -14,6 +14,9 @@
 - Onboarding screen
 - Register screen
 
+### Firebase
+- Implemented user registration
+
 ## 🏗️ In progress:
 - Connect Firebase
 

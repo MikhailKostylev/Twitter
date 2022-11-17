@@ -15,10 +15,12 @@
 - Register screen
 
 ### Firebase
-- Implemented user registration
+- User registration
+- User log out
 
 ## 🏗️ In progress:
-- Connect Firebase
+- Login screen
+- Login user
 
 https://user-images.githubusercontent.com/100859587/202020948-8c29a0ee-cf1a-4767-8546-2385b0461f0b.mp4
 

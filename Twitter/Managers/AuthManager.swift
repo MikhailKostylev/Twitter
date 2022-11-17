@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
+import FirebaseAuthCombineSwift
+import Combine
 
 final class AuthManager {
     static let shared = AuthManager()
@@ -16,4 +19,12 @@ final class AuthManager {
     }
     
     private init() {}
+    
+    // MARK: - Public
+    
+    func registerUser(with email: String, password: String) -> AnyPublisher<User, Error> {
+        return Auth.auth().createUser(withEmail: email, password: password)
+            .map(\.user)
+            .eraseToAnyPublisher()
+    }
 }

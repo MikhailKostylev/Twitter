@@ -101,7 +101,11 @@ final class TabBarController: UITabBarController {
         view.tabBarItem.title = title
         view.tabBarItem.image = image
         view.tabBarItem.selectedImage = selectedImage
-        return UINavigationController(rootViewController: view)
+        
+        let navVC = UINavigationController(rootViewController: view)
+        navVC.navigationBar.topItem?.backButtonDisplayMode = .minimal
+        navVC.navigationBar.tintColor = R.Color.twitterBlue
+        return navVC
     }
 }
 

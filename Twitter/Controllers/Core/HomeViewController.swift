@@ -76,7 +76,7 @@ private extension HomeViewController {
     }
     
     func setupProfileBarButton() {
-        let profileImage = UIImage(systemName: "person")
+        let profileImage = UIImage(systemName: "person.fill")
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: profileImage,
             style: .plain,

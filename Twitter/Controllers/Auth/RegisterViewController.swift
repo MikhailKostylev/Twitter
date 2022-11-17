@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class RegisterViewController: UIViewController {
+    
+    private var viewModel = RegisterViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: - UI elements
     
@@ -48,6 +52,7 @@ final class RegisterViewController: UIViewController {
     
     private lazy var passwordTextField: UITextField = {
         let view = UITextField()
+        view.textContentType  = .oneTimeCode
         view.returnKeyType = .done
         view.keyboardType = .default
         view.autocorrectionType = .no
@@ -79,6 +84,7 @@ final class RegisterViewController: UIViewController {
         view.backgroundColor = R.Color.twitterBlue
         view.layer.masksToBounds = true
         view.layer.cornerRadius = C.registerCornerRadius
+        view.isEnabled = false
         return view
     }()
     
@@ -91,6 +97,8 @@ final class RegisterViewController: UIViewController {
         addSubviews()
         setupLayout()
         addButtonAction()
+        addTextFieldsAction()
+        setupBindings()
     }
 }
 
@@ -113,13 +121,39 @@ extension RegisterViewController {
     func addButtonAction() {
         registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
     }
+    
+    func addTextFieldsAction() {
+        emailTextField.addTarget(self, action: #selector(didChangeEmailField), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(didChangePasswordField), for: .editingChanged)
+    }
+    
+    func setupBindings() {
+        viewModel.$isRegistrationFormValid.sink { [weak self] validationState in
+            self?.registerButton.isEnabled = validationState
+        } .store(in: &subscriptions)
+        
+        viewModel.$user.sink { [weak self] user in
+            print(user)
+        }.store(in: &subscriptions)
+    }
 }
 
 // MARK: - Actions
 
 private extension RegisterViewController {
     @objc func didTapRegister() {
-        
+        guard registerButton.isEnabled else { return }
+        viewModel.createUser()
+    }
+    
+    @objc func didChangeEmailField() {
+        viewModel.email = emailTextField.text
+        viewModel.validateRegistrationForm()
+    }
+    
+    @objc func didChangePasswordField() {
+        viewModel.password = passwordTextField.text
+        viewModel.validateRegistrationForm()
     }
     
     @objc func didTapKeyboardDone() {

@@ -15,6 +15,14 @@ enum Resources {
     }
     
     enum Text {
+        enum ProfileInfo {
+            static let title = "Fill in your details"
+            static let displayNamePlaceholder = "Display Name"
+            static let usernamePlaceholder = "Username"
+            static let bioPlaceholder = "Tell the world about yourself"
+            static let submit = "Submit"
+        }
+        
         enum Login {
             static let title = "Login to your account"
             static let emailPlaceholder = "Email"
@@ -38,7 +46,7 @@ enum Resources {
             static let loginButton = "Login"
         }
         
-        enum Profile {
+        enum ProfileHeader {
             static let edit = "Edit"
             static let following = "Following"
             static let followers = "Followers"
@@ -60,6 +68,12 @@ enum Resources {
     }
     
     enum Font {
+        enum ProfileInfo {
+            static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
+            static let bio = UIFont.systemFont(ofSize: 16, weight: .regular)
+            static let submit = UIFont.systemFont(ofSize: 16, weight: .bold)
+        }
+        
         enum Login {
             static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
             static let login = UIFont.systemFont(ofSize: 18, weight: .medium)

@@ -11,7 +11,7 @@ final class ProfileViewController: UIViewController {
     
     private var isStatusBarHidden = true
     
-    // MARK: - UI elements
+    // MARK: - Subviews
     
     private let statusBar: UIView = {
         let view = UIView()

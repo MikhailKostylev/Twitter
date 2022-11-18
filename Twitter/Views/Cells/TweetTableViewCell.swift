@@ -19,7 +19,7 @@ final class TweetTableViewCell: UITableViewCell {
     
     weak var delegate: TweetTableViewCellDelegate?
     
-    // MARK: - UI elements
+    // MARK: - Subviews
     
     private let avatarImageView: UIImageView = {
         let view = UIImageView()

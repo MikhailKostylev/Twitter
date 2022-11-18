@@ -9,7 +9,7 @@ import UIKit
 
 final class OnboardingViewController: UIViewController {
     
-    // MARK: - UI elements
+    // MARK: - Subviews
     
     private let logoImageView: UIImageView = {
         let view = UIImageView()

@@ -20,7 +20,7 @@ final class ProfileTableViewHeader: UIView {
     private var leadingAnchors = [NSLayoutConstraint]()
     private var trailingAnchors = [NSLayoutConstraint]()
     
-    // MARK: - UI elements
+    // MARK: - Subviews
     
     private let headerImageView: UIImageView = {
         let view = UIImageView()
@@ -51,7 +51,7 @@ final class ProfileTableViewHeader: UIView {
     
     private let editButton: UIButton = {
         let view = UIButton()
-        view.setTitle(R.Text.Profile.edit, for: .normal)
+        view.setTitle(R.Text.ProfileHeader.edit, for: .normal)
         view.setTitleColor(.label, for: .normal)
         view.titleLabel?.font = R.Font.ProfileHeader.edit
         view.layer.cornerRadius = C.editCornerRadius
@@ -141,7 +141,7 @@ final class ProfileTableViewHeader: UIView {
     
     private let followingTextLabel: UILabel = {
         let view = UILabel()
-        view.text = R.Text.Profile.following
+        view.text = R.Text.ProfileHeader.following
         view.textColor = .secondaryLabel
         view.font = R.Font.ProfileHeader.followingText
         return view
@@ -157,17 +157,17 @@ final class ProfileTableViewHeader: UIView {
     
     private let followersTextLabel: UILabel = {
         let view = UILabel()
-        view.text = R.Text.Profile.followers
+        view.text = R.Text.ProfileHeader.followers
         view.textColor = .secondaryLabel
         view.font = R.Font.ProfileHeader.followersText
         return view
     }()
     
     private let tabs: [UIButton] = [
-        R.Text.Profile.tab1,
-        R.Text.Profile.tab2,
-        R.Text.Profile.tab3,
-        R.Text.Profile.tab4
+        R.Text.ProfileHeader.tab1,
+        R.Text.ProfileHeader.tab2,
+        R.Text.ProfileHeader.tab3,
+        R.Text.ProfileHeader.tab4
     ].enumerated().map { (index, buttonTitle) in
         let button = UIButton(type: .system)
         button.tintColor = .label

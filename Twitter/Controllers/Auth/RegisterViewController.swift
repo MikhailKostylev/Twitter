@@ -13,7 +13,7 @@ final class RegisterViewController: UIViewController {
     private var viewModel = AuthenticationViewModel()
     private var subscriptions: Set<AnyCancellable> = []
     
-    // MARK: - UI elements
+    // MARK: - Subviews
     
     private let titleLabel: UILabel = {
         let view = UILabel()

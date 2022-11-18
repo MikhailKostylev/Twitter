@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F51A77B2927851300D1941C /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F51A77A2927851300D1941C /* TwitterUser.swift */; };
+		1F51A77D2927875300D1941C /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F51A77C2927875300D1941C /* DatabaseManager.swift */; };
+		1F51A77F29278E0700D1941C /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F51A77E29278E0700D1941C /* HomeViewModel.swift */; };
+		1F51A7812927956900D1941C /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F51A7802927956900D1941C /* ProfileInfoViewController.swift */; };
+		1F51A783292796E200D1941C /* ProfileInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F51A782292796E200D1941C /* ProfileInfoViewModel.swift */; };
 		1F541812292643F80095E63B /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F541811292643F80095E63B /* AuthenticationViewModel.swift */; };
 		1F5418142926495C0095E63B /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5418132926495C0095E63B /* String+Ext.swift */; };
 		1F54181929266D620095E63B /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F54181829266D620095E63B /* HapticsManager.swift */; };
@@ -43,6 +48,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F51A77A2927851300D1941C /* TwitterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
+		1F51A77C2927875300D1941C /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		1F51A77E29278E0700D1941C /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		1F51A7802927956900D1941C /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
+		1F51A782292796E200D1941C /* ProfileInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewModel.swift; sourceTree = "<group>"; };
 		1F541811292643F80095E63B /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		1F5418132926495C0095E63B /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		1F54181829266D620095E63B /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
@@ -102,6 +112,8 @@
 		1F541810292643AD0095E63B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1F51A782292796E200D1941C /* ProfileInfoViewModel.swift */,
+				1F51A77E29278E0700D1941C /* HomeViewModel.swift */,
 				1F541811292643F80095E63B /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModels;
@@ -110,6 +122,7 @@
 		1F541815292655B00095E63B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1F51A77A2927851300D1941C /* TwitterUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -127,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				1F803E692921A740007CAE32 /* ProfileViewController.swift */,
+				1F51A7802927956900D1941C /* ProfileInfoViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -159,8 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				1F8685A02920324A00F83BF5 /* App */,
-				1F541815292655B00095E63B /* Models */,
 				1FDC3BDC292510D8009CDEAA /* Managers */,
+				1F541815292655B00095E63B /* Models */,
 				1F541810292643AD0095E63B /* ViewModels */,
 				1F5FD248292131E70047139B /* Views */,
 				1F8685A22920332D00F83BF5 /* Controllers */,
@@ -227,6 +241,7 @@
 		1FDC3BDC292510D8009CDEAA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				1F51A77C2927875300D1941C /* DatabaseManager.swift */,
 				1FDC3BDD2925110F009CDEAA /* AuthManager.swift */,
 				1F54181829266D620095E63B /* HapticsManager.swift */,
 			);
@@ -333,18 +348,23 @@
 				1FDC3BDE2925110F009CDEAA /* AuthManager.swift in Sources */,
 				1FDC3BE5292572E0009CDEAA /* UIViewController+Ext.swift in Sources */,
 				1F8685912920322D00F83BF5 /* TabBarController.swift in Sources */,
+				1F51A77D2927875300D1941C /* DatabaseManager.swift in Sources */,
 				1F86858D2920322D00F83BF5 /* AppDelegate.swift in Sources */,
 				1F5FD24A292132140047139B /* TweetTableViewCell.swift in Sources */,
+				1F51A783292796E200D1941C /* ProfileInfoViewModel.swift in Sources */,
 				1F8685A92920359200F83BF5 /* NotificationsViewController.swift in Sources */,
 				1F541812292643F80095E63B /* AuthenticationViewModel.swift in Sources */,
 				1FF3F97E2922580300ED0B37 /* CommunitiesViewController.swift in Sources */,
+				1F51A77B2927851300D1941C /* TwitterUser.swift in Sources */,
 				1F86858F2920322D00F83BF5 /* SceneDelegate.swift in Sources */,
 				1FDC3BE129251347009CDEAA /* OnboardingViewController.swift in Sources */,
 				1F803E6A2921A740007CAE32 /* ProfileViewController.swift in Sources */,
+				1F51A7812927956900D1941C /* ProfileInfoViewController.swift in Sources */,
 				1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */,
 				1F5418142926495C0095E63B /* String+Ext.swift in Sources */,
 				1FDC3BE3292534DD009CDEAA /* RegisterViewController.swift in Sources */,
 				1FF3F97B292247E600ED0B37 /* ProfileTableViewHeader.swift in Sources */,
+				1F51A77F29278E0700D1941C /* HomeViewModel.swift in Sources */,
 				1F8685AD2920373E00F83BF5 /* Resources.swift in Sources */,
 				1F8685A52920354C00F83BF5 /* HomeViewController.swift in Sources */,
 				1F54181929266D620095E63B /* HapticsManager.swift in Sources */,

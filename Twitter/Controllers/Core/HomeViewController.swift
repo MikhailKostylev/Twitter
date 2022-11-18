@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 final class HomeViewController: UIViewController {
     
-    // MARK: - UI elements
+    private var viewModel = HomeViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    // MARK: - Subviews
     
     private let tableView: UITableView = {
         let view = UITableView()
@@ -26,6 +30,12 @@ final class HomeViewController: UIViewController {
         addSubviews()
         setupLayout()
         setupNavigationBar()
+        setupBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        retrieveUser()
     }
 }
 
@@ -94,6 +104,20 @@ private extension HomeViewController {
             action: #selector(didTapLogOut)
         )
     }
+    
+    func setupBindings() {
+        viewModel.$user.sink { [weak self] user in
+            guard let user = user else { return }
+            if !user.isUserOnboarded {
+                self?.completeUserOnboarding()
+            }
+        }.store(in: &subscriptions)
+    }
+    
+    func completeUserOnboarding() {
+        let vc = ProfileInfoViewController()
+        present(vc, animated: true)
+    }
 }
 
 // MARK: - Actions
@@ -107,6 +131,10 @@ private extension HomeViewController {
     @objc func didTapLogOut() {
         HapticsManager.shared.vibrate(for: .warning)
         presentActionSheetAlert()
+    }
+    
+    func retrieveUser() {
+        viewModel.retrieveUser()
     }
 }
 

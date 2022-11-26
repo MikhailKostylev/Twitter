@@ -16,7 +16,6 @@ struct TwitterUser: Codable {
     var followingCount: Double = 0
     var createdOn: Date = Date()
     var bio: String = ""
-    var location: String = ""
     var avatarPath: String = ""
     var isUserOnboarded: Bool = false
     

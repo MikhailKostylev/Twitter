@@ -15,7 +15,7 @@ enum Resources {
     }
     
     enum Text {
-        enum ProfileInfo {
+        enum ProfileDataForm {
             static let title = "Fill in your details"
             static let displayNamePlaceholder = "Display Name"
             static let usernamePlaceholder = "Username"
@@ -68,7 +68,7 @@ enum Resources {
     }
     
     enum Font {
-        enum ProfileInfo {
+        enum ProfileDataForm {
             static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
             static let bio = UIFont.systemFont(ofSize: 16, weight: .regular)
             static let submit = UIFont.systemFont(ofSize: 16, weight: .bold)

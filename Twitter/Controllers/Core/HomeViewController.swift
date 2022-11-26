@@ -115,7 +115,7 @@ private extension HomeViewController {
     }
     
     func completeUserOnboarding() {
-        let vc = ProfileInfoViewController()
+        let vc = ProfileDataFormViewController()
         present(vc, animated: true)
     }
 }

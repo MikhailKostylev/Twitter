@@ -1,5 +1,5 @@
 //
-//  ProfileInfoViewController.swift
+//  ProfileDataFormViewController.swift
 //  Twitter
 //
 //  Created by Mikhail Kostylev on 18.11.2022.
@@ -7,8 +7,12 @@
 
 import UIKit
 import PhotosUI
+import Combine
 
-final class ProfileInfoViewController: UIViewController {
+final class ProfileDataFormViewController: UIViewController {
+    
+    private var viewModel = ProfileDataFormViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: - Subviews
     
@@ -23,10 +27,10 @@ final class ProfileInfoViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = R.Text.ProfileInfo.title
+        label.text = R.Text.ProfileDataForm.title
         label.textColor = .label
         label.textAlignment = .center
-        label.font = R.Font.ProfileInfo.title
+        label.font = R.Font.ProfileDataForm.title
         return label
     }()
     
@@ -51,7 +55,7 @@ final class ProfileInfoViewController: UIViewController {
         view.autocapitalizationType = .words
         view.backgroundColor = .secondarySystemFill
         view.attributedPlaceholder = NSAttributedString(
-            string: R.Text.ProfileInfo.displayNamePlaceholder,
+            string: R.Text.ProfileDataForm.displayNamePlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
         )
         view.layer.masksToBounds = true
@@ -72,7 +76,7 @@ final class ProfileInfoViewController: UIViewController {
         view.autocapitalizationType = .none
         view.backgroundColor = .secondarySystemFill
         view.attributedPlaceholder = NSAttributedString(
-            string: R.Text.ProfileInfo.usernamePlaceholder,
+            string: R.Text.ProfileDataForm.usernamePlaceholder,
             attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
         )
         view.layer.masksToBounds = true
@@ -88,8 +92,8 @@ final class ProfileInfoViewController: UIViewController {
     private let bioTextView: UITextView = {
         let view = UITextView()
         view.textColor = .gray
-        view.font = R.Font.ProfileInfo.bio
-        view.text = R.Text.ProfileInfo.bioPlaceholder
+        view.font = R.Font.ProfileDataForm.bio
+        view.text = R.Text.ProfileDataForm.bioPlaceholder
         view.backgroundColor = .secondarySystemFill
         view.layer.cornerRadius = C.bioCornerRadius
         view.layer.masksToBounds = true
@@ -105,8 +109,8 @@ final class ProfileInfoViewController: UIViewController {
     private let submitButton: UIButton = {
         let view = UIButton(type: .system)
         view.tintColor = .white
-        view.setTitle(R.Text.ProfileInfo.submit, for: .normal)
-        view.titleLabel?.font = R.Font.ProfileInfo.submit
+        view.setTitle(R.Text.ProfileDataForm.submit, for: .normal)
+        view.titleLabel?.font = R.Font.ProfileDataForm.submit
         view.backgroundColor = R.Color.twitterBlue
         view.layer.cornerRadius = C.submitCornerRadius
         view.layer.masksToBounds = true
@@ -125,13 +129,13 @@ final class ProfileInfoViewController: UIViewController {
         addGestureRecognizerToAvatar()
         addSubmitButtonAction()
         hideKeyboardWhenTappedAround()
-
+        setupBindings()
     }
 }
 
 // MARK: - Setups
 
-private extension ProfileInfoViewController {
+private extension ProfileDataFormViewController {
     func setupVC() {
         view.backgroundColor = .systemBackground
         isModalInPresentation = true
@@ -155,6 +159,14 @@ private extension ProfileInfoViewController {
         bioTextView.delegate = self
     }
     
+    func setupBindings() {
+        displayNameTextField.addTarget(self, action: #selector(didUpdateDisplayName), for: .editingChanged)
+        usernameTextField.addTarget(self, action: #selector(didUpdateUsername), for: .editingChanged)
+        viewModel.$isFormValid.sink { [weak self] validationState in
+            self?.submitButton.isEnabled = validationState
+        }.store(in: &subscriptions)
+    }
+    
     func addGestureRecognizerToAvatar() {
         avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapUpdateAvatar)))
     }
@@ -166,10 +178,21 @@ private extension ProfileInfoViewController {
 
 // MARK: - Actions
 
-private extension ProfileInfoViewController {
+private extension ProfileDataFormViewController {
+    @objc func didUpdateDisplayName() {
+        viewModel.displayName = displayNameTextField.text
+        viewModel.validateUserProfileForm()
+    }
+    
+    @objc func didUpdateUsername() {
+        viewModel.username = usernameTextField.text
+        viewModel.validateUserProfileForm()
+    }
+    
     @objc func didTapSubmit() {
         guard submitButton.isEnabled else { return }
 
+        viewModel.uploadAvatar()
     }
     
     @objc func didTapUpdateAvatar() {
@@ -191,7 +214,7 @@ private extension ProfileInfoViewController {
 
 // MARK: - Photo Picker Delegate
 
-extension ProfileInfoViewController: PHPickerViewControllerDelegate {
+extension ProfileDataFormViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
@@ -199,6 +222,8 @@ extension ProfileInfoViewController: PHPickerViewControllerDelegate {
             if let image = object as? UIImage {
                 DispatchQueue.main.async {
                     self?.avatarImageView.image  = image
+                    self?.viewModel.imageData = image
+                    self?.viewModel.validateUserProfileForm()
                 }
             }
         })
@@ -207,7 +232,7 @@ extension ProfileInfoViewController: PHPickerViewControllerDelegate {
 
 // MARK: - TextField Delegate
 
-extension ProfileInfoViewController: UITextFieldDelegate {
+extension ProfileDataFormViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x: 0, y: textField.frame.origin.y - C.topPadding ), animated: true)
     }
@@ -231,7 +256,7 @@ extension ProfileInfoViewController: UITextFieldDelegate {
 
 // MARK: - TextView Delegate
 
-extension ProfileInfoViewController: UITextViewDelegate {
+extension ProfileDataFormViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         scrollView.setContentOffset(CGPoint(x: 0, y: textView.frame.origin.y - C.topPadding ), animated: true)
         if textView.textColor == .gray {
@@ -243,15 +268,20 @@ extension ProfileInfoViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         if textView.text.isEmpty {
-            textView.text = R.Text.ProfileInfo.bioPlaceholder
+            textView.text = R.Text.ProfileDataForm.bioPlaceholder
             textView.textColor = .gray
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.bio = textView.text
+        viewModel.validateUserProfileForm()
     }
 }
 
 // MARK: - Layout
 
-private extension ProfileInfoViewController {
+private extension ProfileDataFormViewController {
     typealias C = Constants
     
     enum Constants {

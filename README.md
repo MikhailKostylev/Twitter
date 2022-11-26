@@ -15,16 +15,18 @@
 - Register screen
 - Logout button and action sheet
 - Login screen
-- Profile Info screen
+- Profile data form screen
 
 ### Firebase
+- Firebase Auth
 - User Registration
 - User Log Out
 - User Login
 - Firebase Database
+- Upload user profile avatar
 
 ## 🏗️ In progress:
-- Saving user's avatar photo and info
+- Upload user's info
 
 https://user-images.githubusercontent.com/100859587/202020948-8c29a0ee-cf1a-4767-8546-2385b0461f0b.mp4
 

@@ -24,9 +24,11 @@
 - User Login
 - Firebase Database
 - Upload user profile avatar
+- Upload all user profile info
+- Get user info and avatar and display it
 
 ## 🏗️ In progress:
-- Upload user's info
+- Change register date format and display it in profile
 
 https://user-images.githubusercontent.com/100859587/202020948-8c29a0ee-cf1a-4767-8546-2385b0461f0b.mp4
 

@@ -89,6 +89,27 @@ final class ProfileDataFormViewController: UIViewController {
         return view
     }()
     
+    private let locationTextField: UITextField = {
+        let view = UITextField()
+        view.autocorrectionType = .no
+        view.returnKeyType = .continue
+        view.keyboardType = .default
+        view.autocapitalizationType = .words
+        view.backgroundColor = .secondarySystemFill
+        view.attributedPlaceholder = NSAttributedString(
+            string: R.Text.ProfileDataForm.locationPlaceholder,
+            attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray]
+        )
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = C.textFieldCornerRadius
+        view.leftViewMode = .always
+        view.leftView = UIView(frame: CGRect(origin: .zero, size: CGSize(
+            width: C.textFieldLeftViewSize,
+            height: C.textFieldLeftViewSize
+        )))
+        return view
+    }()
+    
     private let bioTextView: UITextView = {
         let view = UITextView()
         view.textColor = .gray
@@ -148,6 +169,7 @@ private extension ProfileDataFormViewController {
             avatarImageView,
             displayNameTextField,
             usernameTextField,
+            locationTextField,
             bioTextView,
             submitButton
         ].forEach { scrollView.addSubview($0) }
@@ -156,15 +178,24 @@ private extension ProfileDataFormViewController {
     func setupDelegated() {
         displayNameTextField.delegate = self
         usernameTextField.delegate = self
+        locationTextField.delegate = self
         bioTextView.delegate = self
     }
     
     func setupBindings() {
         displayNameTextField.addTarget(self, action: #selector(didUpdateDisplayName), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(didUpdateUsername), for: .editingChanged)
+        locationTextField.addTarget(self, action: #selector(didUpdateLocation), for: .editingChanged)
+        
         viewModel.$isFormValid.sink { [weak self] validationState in
             self?.submitButton.isEnabled = validationState
         }.store(in: &subscriptions)
+        
+        viewModel.$isOnboardingFinished.sink { [weak self] successfullyOnboarded in
+            if successfullyOnboarded {
+                self?.dismiss(animated: true)
+            }
+        }.store(in: &subscriptions )
     }
     
     func addGestureRecognizerToAvatar() {
@@ -189,9 +220,13 @@ private extension ProfileDataFormViewController {
         viewModel.validateUserProfileForm()
     }
     
+    @objc func didUpdateLocation() {
+        viewModel.location = locationTextField.text
+        viewModel.validateUserProfileForm()
+    }
+    
     @objc func didTapSubmit() {
         guard submitButton.isEnabled else { return }
-
         viewModel.uploadAvatar()
     }
     
@@ -208,6 +243,7 @@ private extension ProfileDataFormViewController {
     @objc func didTapKeyboardDone() {
         displayNameTextField.resignFirstResponder()
         usernameTextField.resignFirstResponder()
+        locationTextField.resignFirstResponder()
         bioTextView.resignFirstResponder()
     }
 }
@@ -245,10 +281,9 @@ extension ProfileDataFormViewController: UITextFieldDelegate {
         if textField == displayNameTextField {
             usernameTextField.becomeFirstResponder()
         } else if textField == usernameTextField {
+            locationTextField.becomeFirstResponder()
+        } else if textField == locationTextField {
             bioTextView.becomeFirstResponder()
-        } else {
-            didTapKeyboardDone()
-            didTapSubmit()
         }
         return true
     }
@@ -277,6 +312,15 @@ extension ProfileDataFormViewController: UITextViewDelegate {
         viewModel.bio = textView.text
         viewModel.validateUserProfileForm()
     }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            didTapKeyboardDone()
+            didTapSubmit()
+            return false
+        }
+        return true
+    }
 }
 
 // MARK: - Layout
@@ -303,6 +347,7 @@ private extension ProfileDataFormViewController {
         static let displayNameHeight: CGFloat = 50
 
         static let usernameTop: CGFloat = 20
+        static let locationTop: CGFloat = 20
         
         static let bioTop: CGFloat = 20
         static let bioHeight: CGFloat = 150
@@ -325,6 +370,7 @@ private extension ProfileDataFormViewController {
             avatarImageView,
             displayNameTextField,
             usernameTextField,
+            locationTextField,
             bioTextView,
             submitButton
         ].forEach { $0.prepareForAutoLayout() }
@@ -354,7 +400,12 @@ private extension ProfileDataFormViewController {
             usernameTextField.trailingAnchor.constraint(equalTo: displayNameTextField.trailingAnchor),
             usernameTextField.heightAnchor.constraint(equalTo: displayNameTextField.heightAnchor),
             
-            bioTextView.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: C.bioTop),
+            locationTextField.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: C.locationTop),
+            locationTextField.leadingAnchor.constraint(equalTo: displayNameTextField.leadingAnchor),
+            locationTextField.trailingAnchor.constraint(equalTo: displayNameTextField.trailingAnchor),
+            locationTextField.heightAnchor.constraint(equalTo: displayNameTextField.heightAnchor),
+            
+            bioTextView.topAnchor.constraint(equalTo: locationTextField.bottomAnchor, constant: C.bioTop),
             bioTextView.leadingAnchor.constraint(equalTo: displayNameTextField.leadingAnchor),
             bioTextView.trailingAnchor.constraint(equalTo: displayNameTextField.trailingAnchor),
             bioTextView.heightAnchor.constraint(equalToConstant: C.bioHeight),

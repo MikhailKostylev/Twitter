@@ -20,6 +20,7 @@ enum Resources {
             static let displayNamePlaceholder = "Display Name"
             static let usernamePlaceholder = "Username"
             static let bioPlaceholder = "Tell the world about yourself"
+            static let locationPlaceholder = "Location"
             static let submit = "Submit"
         }
         

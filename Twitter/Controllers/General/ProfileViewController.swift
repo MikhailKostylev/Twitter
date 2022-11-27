@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Combine
+import SDWebImage
 
 final class ProfileViewController: UIViewController {
     
+    private let viewModel = ProfileViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     private var isStatusBarHidden = true
     
     // MARK: - Subviews
@@ -27,19 +31,23 @@ final class ProfileViewController: UIViewController {
         return view
     }()
     
+    private var tableHeaderView: ProfileTableViewHeader?
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSuperview()
-        addSubviews()
         setupTableView()
+        addSubviews()
         setupLayout()
+        setupBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavBar()
+        getUserData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,7 +64,8 @@ private extension ProfileViewController {
     }
     
     func setupTableView() {
-        tableView.tableHeaderView = createHeaderView()
+        createTableHeaderView()
+        tableView.tableHeaderView = tableHeaderView
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(
@@ -70,14 +79,35 @@ private extension ProfileViewController {
         view.addSubview(statusBar)
     }
     
-    func createHeaderView() -> UIView {
-        ProfileTableViewHeader(
+    func createTableHeaderView() {
+        tableHeaderView = ProfileTableViewHeader(
             frame: CGRect(
                 origin: .zero,
                 size: CGSize(width: view.width, height: C.profileHeaderHeight)
             ),
             headerImageHeight: C.profileHeaderImageHeight
         )
+    }
+    
+    func setupBindings() {
+        viewModel.$user.sink { [weak self] user in
+            guard let user = user else { return }
+            self?.fillProfileInfo(user: user)
+        }.store(in: &subscriptions)
+    }
+    
+    func fillProfileInfo(user: TwitterUser) {
+        self.tableHeaderView?.displayNameLabel.text = user.displayName
+        self.tableHeaderView?.usernameLabel.text = "@\(user.username)"
+        self.tableHeaderView?.locationLabel.text = user.location
+        self.tableHeaderView?.userBioLabel.text = user.bio
+        self.tableHeaderView?.followersCountLabel.text = "\(user.followersCount)"
+        self.tableHeaderView?.followingCountLabel.text = "\(user.followingCount)"
+        self.tableHeaderView?.avatarImageView.sd_setImage(with: URL(string: user.avatarPath))
+    }
+    
+    func getUserData() {
+        viewModel.retrieveUser()
     }
 }
 

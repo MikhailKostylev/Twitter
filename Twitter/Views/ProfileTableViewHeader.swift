@@ -39,10 +39,9 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let avatarImageView: UIImageView = {
+    public var avatarImageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.image = UIImage(named: "testAvatar")
         view.backgroundColor = .secondarySystemBackground
         view.layer.cornerRadius = C.avatarCornerRadius
         view.layer.masksToBounds = true
@@ -61,9 +60,8 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let displayNameLabel: UILabel = {
+    public var displayNameLabel: UILabel = {
         let view = UILabel()
-        view.text = "Mikhail Kostylev"
         view.numberOfLines = 1
         view.textColor = .label
         view.textAlignment = .left
@@ -71,9 +69,8 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let usernameLabel: UILabel = {
+    public var usernameLabel: UILabel = {
         let view = UILabel()
-        view.text = "@MikhailKostyle3"
         view.numberOfLines = 1
         view.textColor = .secondaryLabel
         view.textAlignment = .left
@@ -81,9 +78,8 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let userBioLabel: UILabel = {
+    public var userBioLabel: UILabel = {
         let view = UILabel()
-        view.text = " iOS Developer"
         view.numberOfLines = 1
         view.textColor = .label
         view.textAlignment = .left
@@ -101,7 +97,7 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let locationLabel: UILabel = {
+    public var locationLabel: UILabel = {
         let view = UILabel()
         view.text = "Moscow"
         view.numberOfLines = 1
@@ -121,7 +117,7 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let joinDateLabel: UILabel = {
+    public var joinDateLabel: UILabel = {
         let view = UILabel()
         view.text = "Joined date: June 2022"
         view.numberOfLines = 1
@@ -131,9 +127,8 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let followingCountLabel: UILabel = {
+    public var followingCountLabel: UILabel = {
         let view = UILabel()
-        view.text = "1337"
         view.textColor = .label
         view.font = R.Font.ProfileHeader.followingCount
         return view
@@ -147,9 +142,8 @@ final class ProfileTableViewHeader: UIView {
         return view
     }()
     
-    private let followersCountLabel: UILabel = {
+    public var followersCountLabel: UILabel = {
         let view = UILabel()
-        view.text = "322"
         view.textColor = .label
         view.font = R.Font.ProfileHeader.followersCount
         return view

@@ -21,6 +21,17 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
+    private let createTweetButton: UIButton = {
+        let button = UIButton(type: .system, primaryAction: UIAction { _ in
+            print("Create Tweet")
+        })
+        button.backgroundColor = R.Color.twitterBlue
+        button.tintColor = .white
+        button.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18)), for: .normal)
+        button.layer.cornerRadius = 30
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -57,6 +68,7 @@ private extension HomeViewController {
     
     func addSubviews() {
         view.addSubview(tableView)
+        view.addSubview(createTweetButton)
     }
     
     func setupNavigationBar() {
@@ -246,12 +258,18 @@ private extension HomeViewController {
     
     func setupLayout() {
         tableView.prepareForAutoLayout()
+        createTweetButton.prepareForAutoLayout()
         
         let constraints = [
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            createTweetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            createTweetButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
+            createTweetButton.widthAnchor.constraint(equalToConstant: 60),
+            createTweetButton.heightAnchor.constraint(equalToConstant: 60)
         ]
         
         NSLayoutConstraint.activate(constraints)

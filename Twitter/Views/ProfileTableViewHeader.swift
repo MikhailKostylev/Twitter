@@ -119,7 +119,6 @@ final class ProfileTableViewHeader: UIView {
     
     public var joinDateLabel: UILabel = {
         let view = UILabel()
-        view.text = "Joined date: June 2022"
         view.numberOfLines = 1
         view.textColor = .secondaryLabel
         view.textAlignment = .left

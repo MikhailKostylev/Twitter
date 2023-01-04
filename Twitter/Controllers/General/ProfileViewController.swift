@@ -104,6 +104,7 @@ private extension ProfileViewController {
         self.tableHeaderView?.followersCountLabel.text = "\(user.followersCount)"
         self.tableHeaderView?.followingCountLabel.text = "\(user.followingCount)"
         self.tableHeaderView?.avatarImageView.sd_setImage(with: URL(string: user.avatarPath))
+        self.tableHeaderView?.joinDateLabel.text = "Joined \(viewModel.getFormattedDate(with: user.createdOn))"
     }
     
     func getUserData() {

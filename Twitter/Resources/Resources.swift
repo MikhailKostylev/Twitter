@@ -15,6 +15,12 @@ enum Resources {
     }
     
     enum Text {
+        enum TweetCompose {
+            static let tweet = "Tweet"
+            static let cancel = "Cancel"
+            static let contentPlaceholder = "What's happening?"
+        }
+        
         enum ProfileDataForm {
             static let title = "Fill in your details"
             static let displayNamePlaceholder = "Display Name"
@@ -69,6 +75,11 @@ enum Resources {
     }
     
     enum Font {
+        enum TweetCompose{
+            static let tweetButton = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            static let tweetContent = UIFont.systemFont(ofSize: 16, weight: .regular)
+        }
+        
         enum ProfileDataForm {
             static let title = UIFont.systemFont(ofSize: 32, weight: .bold)
             static let bio = UIFont.systemFont(ofSize: 16, weight: .regular)

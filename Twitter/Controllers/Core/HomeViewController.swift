@@ -21,14 +21,14 @@ final class HomeViewController: UIViewController {
         return view
     }()
     
-    private let createTweetButton: UIButton = {
-        let button = UIButton(type: .system, primaryAction: UIAction { _ in
-            print("Create Tweet")
+    private lazy var composeTweetButton: UIButton = {
+        let button = UIButton(type: .system, primaryAction: UIAction { [weak self] _ in
+            self?.navigateToTweetComposer()
         })
         button.backgroundColor = R.Color.twitterBlue
         button.tintColor = .white
         button.setImage(UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18)), for: .normal)
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = C.composeTweetButtonCornerRadius
         return button
     }()
     
@@ -68,7 +68,7 @@ private extension HomeViewController {
     
     func addSubviews() {
         view.addSubview(tableView)
-        view.addSubview(createTweetButton)
+        view.addSubview(composeTweetButton)
     }
     
     func setupNavigationBar() {
@@ -147,6 +147,12 @@ private extension HomeViewController {
     
     func retrieveUser() {
         viewModel.retrieveUser()
+    }
+    
+    func navigateToTweetComposer() {
+        let vc = UINavigationController(rootViewController: TweetComposeViewController())
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
     }
 }
 
@@ -252,13 +258,21 @@ extension HomeViewController: TweetTableViewCellDelegate {
 // MARK: - Layout
 
 private extension HomeViewController {
+    typealias C = Constants
+    
     enum Constants {
         static let logoSize: CGFloat = 36
+        static let composeTweetRight: CGFloat = -25
+        static let composeTweetBottom: CGFloat = -120
+        static let composeTweetSize: CGFloat = 60
+        static var composeTweetButtonCornerRadius: CGFloat {
+            composeTweetSize / 2
+        }
     }
     
     func setupLayout() {
         tableView.prepareForAutoLayout()
-        createTweetButton.prepareForAutoLayout()
+        composeTweetButton.prepareForAutoLayout()
         
         let constraints = [
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -266,10 +280,10 @@ private extension HomeViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            createTweetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
-            createTweetButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
-            createTweetButton.widthAnchor.constraint(equalToConstant: 60),
-            createTweetButton.heightAnchor.constraint(equalToConstant: 60)
+            composeTweetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: C.composeTweetRight),
+            composeTweetButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: C.composeTweetBottom),
+            composeTweetButton.widthAnchor.constraint(equalToConstant: C.composeTweetSize),
+            composeTweetButton.heightAnchor.constraint(equalToConstant: C.composeTweetSize)
         ]
         
         NSLayoutConstraint.activate(constraints)

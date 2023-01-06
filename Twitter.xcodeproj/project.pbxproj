@@ -42,6 +42,8 @@
 		1F8685AD2920373E00F83BF5 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685AC2920373E00F83BF5 /* Resources.swift */; };
 		1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8685AF292043AA00F83BF5 /* UIView+Ext.swift */; };
 		1F97FA942966D9CC009BF498 /* TweetComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F97FA932966D9CC009BF498 /* TweetComposeViewController.swift */; };
+		1FC25FFB296834B100B02F2F /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC25FFA296834B100B02F2F /* Tweet.swift */; };
+		1FC25FFD296835C100B02F2F /* TweetComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC25FFC296835C100B02F2F /* TweetComposeViewModel.swift */; };
 		1FDC3BDE2925110F009CDEAA /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC3BDD2925110F009CDEAA /* AuthManager.swift */; };
 		1FDC3BE129251347009CDEAA /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC3BE029251347009CDEAA /* OnboardingViewController.swift */; };
 		1FDC3BE3292534DD009CDEAA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC3BE2292534DD009CDEAA /* RegisterViewController.swift */; };
@@ -79,6 +81,8 @@
 		1F8685AC2920373E00F83BF5 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		1F8685AF292043AA00F83BF5 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		1F97FA932966D9CC009BF498 /* TweetComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetComposeViewController.swift; sourceTree = "<group>"; };
+		1FC25FFA296834B100B02F2F /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		1FC25FFC296835C100B02F2F /* TweetComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetComposeViewModel.swift; sourceTree = "<group>"; };
 		1FDC3BDD2925110F009CDEAA /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		1FDC3BE029251347009CDEAA /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		1FDC3BE2292534DD009CDEAA /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 				1F51A77E29278E0700D1941C /* HomeViewModel.swift */,
 				1F51A782292796E200D1941C /* ProfileDataFormViewModel.swift */,
 				1F84B594293387E800B129CF /* ProfileViewModel.swift */,
+				1FC25FFC296835C100B02F2F /* TweetComposeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				1F51A77A2927851300D1941C /* TwitterUser.swift */,
+				1FC25FFA296834B100B02F2F /* Tweet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,8 +383,10 @@
 				1F51A7812927956900D1941C /* ProfileDataFormViewController.swift in Sources */,
 				1F8685B0292043AA00F83BF5 /* UIView+Ext.swift in Sources */,
 				1F5418142926495C0095E63B /* String+Ext.swift in Sources */,
+				1FC25FFB296834B100B02F2F /* Tweet.swift in Sources */,
 				1FDC3BE3292534DD009CDEAA /* RegisterViewController.swift in Sources */,
 				1FF3F97B292247E600ED0B37 /* ProfileTableViewHeader.swift in Sources */,
+				1FC25FFD296835C100B02F2F /* TweetComposeViewModel.swift in Sources */,
 				1FF2CE8D29321FF3009E44D9 /* StorageManager.swift in Sources */,
 				1F51A77F29278E0700D1941C /* HomeViewModel.swift in Sources */,
 				1F8685AD2920373E00F83BF5 /* Resources.swift in Sources */,

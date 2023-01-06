@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class TweetComposeViewController: UIViewController {
+    
+    private var viewModel = TweetComposeViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: - Subviews
     
@@ -16,9 +20,11 @@ final class TweetComposeViewController: UIViewController {
         button.backgroundColor = R.Color.twitterBlue
         button.setTitle(R.Text.TweetCompose.tweet, for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white.withAlphaComponent(0.7), for: .disabled)
         button.titleLabel?.font = R.Font.TweetCompose.tweetButton
         button.layer.cornerRadius = C.tweetButtonCornerRadius
         button.clipsToBounds = true
+        button.isEnabled = false
         return button
     }()
     
@@ -45,7 +51,13 @@ final class TweetComposeViewController: UIViewController {
         setupCancelBarButton()
         addSubviews()
         setupLayout()
+        setupBindings()
         hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getUserData()
     }
 }
 
@@ -70,6 +82,13 @@ private extension TweetComposeViewController {
     func addSubviews() {
         view.addSubview(tweetButton)
         view.addSubview(tweetContentTextView)
+    }
+    
+    func setupBindings() {
+        viewModel.$isValidToTweet.sink { [weak self] state in
+            self?.tweetButton.isEnabled = state
+        }
+        .store(in: &subscriptions)
     }
 }
 
@@ -96,6 +115,11 @@ extension TweetComposeViewController: UITextViewDelegate {
             textView.text = R.Text.TweetCompose.contentPlaceholder
             textView.textColor = .gray
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.tweetContent = textView.text
+        viewModel.validateToTweet()
     }
 }
 

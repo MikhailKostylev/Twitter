@@ -52,6 +52,7 @@ final class TweetComposeViewController: UIViewController {
         addSubviews()
         setupLayout()
         setupBindings()
+        addActions()
         hideKeyboardWhenTappedAround()
     }
     
@@ -89,12 +90,28 @@ private extension TweetComposeViewController {
             self?.tweetButton.isEnabled = state
         }
         .store(in: &subscriptions)
+        
+        viewModel.$shouldDismissComposer.sink { [weak self] success in
+            if success {
+                self?.dismiss(animated: true)
+            }
+        }
+        .store(in: &subscriptions)
+    }
+    
+    func addActions() {
+        tweetButton.addTarget(self, action: #selector(didTapTweet), for: .touchUpInside)
     }
 }
 
 // MARK: - Actions
 
 private extension TweetComposeViewController {
+    @objc func didTapTweet() {
+        guard tweetButton.isEnabled else { return }
+        viewModel.dispatchTweet()
+    }
+    
     @objc func didTapCancel() {
         dismiss(animated: true)
     }

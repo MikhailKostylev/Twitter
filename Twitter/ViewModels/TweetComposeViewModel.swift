@@ -40,6 +40,7 @@ final class TweetComposeViewModel: ObservableObject {
         guard let user = user else { return }
         let tweet = Tweet(
             author: user,
+            authorID: user.id,
             tweetContent: tweetContent,
             likesCount: 0,
             likers: [],

@@ -124,6 +124,12 @@ private extension HomeViewController {
                 self?.completeUserOnboarding()
             }
         }.store(in: &subscriptions)
+        
+        viewModel.$tweets.sink { [weak self] tweets in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }.store(in: &subscriptions)
     }
     
     func completeUserOnboarding() {
@@ -214,7 +220,7 @@ private extension HomeViewController {
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -222,6 +228,14 @@ extension HomeViewController: UITableViewDataSource {
             withIdentifier: TweetTableViewCell.id,
             for: indexPath
         ) as? TweetTableViewCell else { return UITableViewCell() }
+        
+        let tweetModel = viewModel.tweets[indexPath.row]
+        cell.configure(
+            displayName: tweetModel.author.displayName,
+            username: tweetModel.author.username,
+            tweetTextContent: tweetModel.tweetContent,
+            avatarPath: tweetModel.author.avatarPath
+        )
         cell.delegate = self
         return cell
     }
